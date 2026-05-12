@@ -3,1114 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EU VAT Calculator 2026 — EUToolbox</title>
-<meta name="description" content="Free EU VAT Calculator for all 27 EU countries plus UK and Switzerland. Calculate VAT instantly for your business, invoices, and accounting.">
+<title>EUToolbox 2026 — EU Business & Legal Suite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0f1e;
-    --bg2: #0f1629;
-    --bg3: #151d35;
-    --card: #111827;
-    --border: rgba(99,120,255,0.15);
-    --border2: rgba(99,120,255,0.25);
-    --accent: #4f6ef7;
-    --accent2: #7c3aed;
-    --accent3: #06b6d4;
-    --green: #10b981;
-    --text: #f0f4ff;
-    --text2: #8892b0;
-    --text3: #4a5568;
-    --mono: 'JetBrains Mono', monospace;
-    --sans: 'Sora', sans-serif;
+    --bg: #0a0f1e; --bg2: #0f1629; --bg3: #151d35; --card: #111827;
+    --border: rgba(99,120,255,0.15); --border2: rgba(99,120,255,0.25);
+    --accent: #4f6ef7; --accent2: #7c3aed; --accent3: #06b6d4;
+    --green: #10b981; --text: #f0f4ff; --text2: #8892b0; --text3: #4a5568;
+    --mono: 'JetBrains Mono', monospace; --sans: 'Sora', sans-serif;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  
+  /* [Original Animations & Background Orbs] */
+  .bg-grid { position: fixed; inset: 0; background-image: linear-gradient(rgba(79,110,247,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(79,110,247,0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+  .bg-orb1 { position: fixed; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(79,110,247,0.12) 0%, transparent 70%); top: -200px; left: -200px; z-index: 0; animation: orbFloat 8s infinite; }
+  @keyframes orbFloat { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(30px, 20px); } }
 
-  html { scroll-behavior: smooth; }
+  /* NAVIGATION & LAYOUT */
+  nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; background: rgba(10,15,30,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  .logo { font-size: 18px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav-tools { display: flex; gap: 8px; }
+  .nav-tool { font-size: 12px; padding: 8px 16px; border-radius: 20px; border: 1px solid var(--border); color: var(--text2); cursor: pointer; background: transparent; transition: 0.3s; }
+  .nav-tool.active { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.08); }
 
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* TOOL SWITCHING SYSTEM */
+  .tool-section { display: none; animation: fadeInUp 0.6s ease; }
+  .tool-section.active { display: block; }
 
-  /* ANIMATED BACKGROUND */
-  .bg-grid {
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(79,110,247,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(79,110,247,0.04) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .bg-orb1 {
-    position: fixed;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(79,110,247,0.12) 0%, transparent 70%);
-    top: -200px; left: -200px;
-    pointer-events: none;
-    z-index: 0;
-    animation: orbFloat 8s ease-in-out infinite;
-  }
-
-  .bg-orb2 {
-    position: fixed;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(124,58,237,0.10) 0%, transparent 70%);
-    bottom: -150px; right: -150px;
-    pointer-events: none;
-    z-index: 0;
-    animation: orbFloat 10s ease-in-out infinite reverse;
-  }
-
-  @keyframes orbFloat {
-    0%, 100% { transform: translate(0,0); }
-    50% { transform: translate(30px, 20px); }
-  }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    background: rgba(10,15,30,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .logo {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--accent), var(--accent3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .logo span { color: var(--text2); -webkit-text-fill-color: var(--text2); font-weight: 300; }
-
-  .nav-tools {
-    display: flex;
-    gap: 6px;
-  }
-
-  .nav-tool {
-    font-size: 12px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    color: var(--text2);
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    background: transparent;
-    font-family: var(--sans);
-  }
-
-  .nav-tool:hover, .nav-tool.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(79,110,247,0.08);
-  }
-
-  .nav-badge {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-    font-size: 11px;
-    padding: 5px 14px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-
-  /* HERO */
-  .hero {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 70px 20px 50px;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--accent3);
-    border: 1px solid rgba(6,182,212,0.3);
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 24px;
-    font-family: var(--mono);
-    letter-spacing: 0.05em;
-    animation: fadeInDown 0.6s ease;
-  }
-
-  .hero-tag::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent3);
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  h1 {
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -2px;
-    margin-bottom: 16px;
-    animation: fadeInDown 0.7s ease;
-  }
-
-  h1 .grad {
-    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent3) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 17px;
-    color: var(--text2);
-    max-width: 520px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
-    font-weight: 300;
-    animation: fadeInDown 0.8s ease;
-  }
-
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    animation: fadeInDown 0.9s ease;
-  }
-
-  .stat { text-align: center; }
-  .stat-num {
-    font-size: 22px;
-    font-weight: 700;
-    font-family: var(--mono);
-    background: linear-gradient(135deg, var(--accent), var(--accent3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .stat-label { font-size: 11px; color: var(--text3); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
-
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* MAIN TOOL */
-  .main {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px 80px;
-  }
-
-  .tool-wrapper {
-    background: var(--card);
-    border: 1px solid var(--border2);
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 0 60px rgba(79,110,247,0.08), 0 40px 80px rgba(0,0,0,0.4);
-    animation: fadeInUp 0.8s ease;
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .tool-header {
-    padding: 28px 32px 24px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(135deg, rgba(79,110,247,0.06), rgba(6,182,212,0.03));
-  }
-
-  .tool-title {
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .tool-icon {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .updated-badge {
-    font-size: 11px;
-    font-family: var(--mono);
-    color: var(--green);
-    border: 1px solid rgba(16,185,129,0.3);
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
+  /* REUSABLE CLASSES FROM YOUR CODE */
+  .main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 20px 80px; }
+  .tool-wrapper { background: var(--card); border: 1px solid var(--border2); border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.4); margin-top: 40px; }
+  .tool-header { padding: 28px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, rgba(79,110,247,0.06), rgba(6,182,212,0.03)); }
+  .tool-title { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .tool-icon { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; }
   .tool-body { padding: 32px; }
-
-  /* FORM */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text2);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  select, input[type="number"] {
-    width: 100%;
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 15px;
-    padding: 14px 18px;
-    transition: all 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-    outline: none;
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238892b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-  }
-
-  select:focus, input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(79,110,247,0.15);
-    background: var(--bg3);
-  }
-
-  select option { background: var(--bg2); }
-
-  .price-field { position: relative; }
-  .currency-sym {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--accent);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: var(--mono);
-    pointer-events: none;
-  }
-
-  .price-field input { padding-left: 36px; font-family: var(--mono); font-size: 18px; }
-
-  /* VAT TYPE TOGGLE */
-  .toggle-group {
-    display: flex;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 4px;
-    gap: 4px;
-    margin-bottom: 20px;
-  }
-
-  .toggle-btn {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 9px;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--text2);
-    background: transparent;
-  }
-
-  .toggle-btn.active {
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    color: white;
-    box-shadow: 0 4px 15px rgba(79,110,247,0.3);
-  }
-
-  /* CALCULATE BUTTON */
-  .calc-btn {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-    color: white;
-    font-family: var(--sans);
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    letter-spacing: 0.02em;
-    margin-bottom: 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .calc-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+  label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.1em; }
+  input, select, textarea { width: 100%; background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; color: var(--text); padding: 14px; outline: none; transition: 0.2s; }
+  input:focus { border-color: var(--accent); }
+  .calc-btn { width: 100%; padding: 16px; border: none; border-radius: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 10px; }
   .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,110,247,0.4); }
-  .calc-btn:hover::before { opacity: 1; }
-  .calc-btn:active { transform: translateY(0); }
+  
+  /* PREVIEW BLOCK FOR GENERATORS */
+  .preview-area { background: #fff; color: #1a1a1a; padding: 40px; border-radius: 8px; font-family: 'Inter', sans-serif; margin-top: 30px; display: none; line-height: 1.5; font-size: 14px; }
+  .policy-text { background: var(--bg2); padding: 20px; border-radius: 12px; border: 1px solid var(--border); font-family: var(--mono); font-size: 13px; color: var(--text2); max-height: 400px; overflow-y: auto; display: none; margin-top: 20px; }
 
-  /* RESULTS */
-  .results {
-    display: none;
-    animation: resultsIn 0.4s ease;
-  }
-
-  .results.show { display: block; }
-
-  @keyframes resultsIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .results-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-
-  .results-title { font-size: 13px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    margin-bottom: 20px;
-    opacity: 0.3;
-  }
-
-  .results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .result-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .result-card:hover { border-color: var(--accent); }
-
-  .result-card.highlight {
-    border-color: rgba(79,110,247,0.5);
-    background: linear-gradient(135deg, rgba(79,110,247,0.08), rgba(124,58,237,0.05));
-  }
-
-  .result-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-  }
-
-  .result-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent3), transparent); }
-  .result-card:nth-child(2)::before { background: linear-gradient(90deg, var(--accent2), transparent); }
-  .result-card:nth-child(3)::before { background: linear-gradient(90deg, var(--green), transparent); }
-
-  .result-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-
-  .result-value {
-    font-size: 24px;
-    font-weight: 700;
-    font-family: var(--mono);
-    letter-spacing: -1px;
-  }
-
-  .result-card:nth-child(1) .result-value { color: var(--accent3); }
-  .result-card:nth-child(2) .result-value { color: var(--accent2); }
-  .result-card:nth-child(3) .result-value { color: var(--green); }
-
-  .result-sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
-
-  /* VAT INFO BAR */
-  .vat-info-bar {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 16px;
-  }
-
-  .vat-info-left { color: var(--text2); }
-  .vat-info-right { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 15px; }
-
-  /* COPY BUTTON */
-  .copy-row {
-    display: flex;
-    gap: 10px;
-  }
-
-  .copy-btn, .reset-btn {
-    flex: 1;
-    padding: 12px;
-    border-radius: 12px;
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid var(--border2);
-  }
-
-  .copy-btn {
-    background: rgba(16,185,129,0.1);
-    color: var(--green);
-    border-color: rgba(16,185,129,0.3);
-  }
-
-  .copy-btn:hover { background: rgba(16,185,129,0.2); }
-
-  .reset-btn {
-    background: rgba(79,110,247,0.08);
-    color: var(--accent);
-  }
-
-  .reset-btn:hover { background: rgba(79,110,247,0.15); }
-
-  /* COUNTRY RATES TABLE */
-  .rates-section {
-    margin-top: 40px;
-    animation: fadeInUp 1s ease;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: -0.5px;
-  }
-
-  .section-sub { font-size: 13px; color: var(--text2); margin-top: 4px; }
-
-  .search-input {
-    background: var(--card);
-    border: 1px solid var(--border2);
-    border-radius: 10px;
-    color: var(--text);
-    padding: 10px 16px;
-    font-family: var(--sans);
-    font-size: 13px;
-    width: 200px;
-    outline: none;
-    transition: all 0.2s;
-  }
-
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--text3); }
-
-  .rates-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
-  }
-
-  .rate-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .rate-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(79,110,247,0.1);
-  }
-
-  .rate-card.selected {
-    border-color: var(--accent);
-    background: rgba(79,110,247,0.08);
-  }
-
-  .country-info { display: flex; align-items: center; gap: 10px; }
-  .country-flag { font-size: 20px; }
-  .country-name { font-size: 13px; font-weight: 500; }
-  .country-code { font-size: 11px; color: var(--text3); }
-  .vat-rate {
-    font-family: var(--mono);
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--accent);
-  }
-
-  /* AFFILIATE SECTION */
-  .affiliate-section {
-    margin-top: 40px;
-    background: linear-gradient(135deg, rgba(79,110,247,0.06), rgba(124,58,237,0.04));
-    border: 1px solid var(--border2);
-    border-radius: 20px;
-    padding: 28px 32px;
-    animation: fadeInUp 1.1s ease;
-  }
-
-  .affiliate-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-  .affiliate-sub { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
-
-  .affiliate-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-  }
-
-  .aff-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px;
-    transition: all 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-  }
-
-  .aff-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  }
-
-  .aff-logo { font-size: 22px; margin-bottom: 8px; }
-  .aff-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .aff-desc { font-size: 12px; color: var(--text2); margin-bottom: 10px; line-height: 1.4; }
-  .aff-cta {
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  /* FOOTER */
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid var(--border);
-    color: var(--text3);
-    font-size: 13px;
-  }
-
-  footer .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; }
-  footer a { color: var(--text2); text-decoration: none; transition: color 0.2s; }
-  footer a:hover { color: var(--accent); }
-
-  /* COPY TOAST */
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--green);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 500;
-    z-index: 999;
-    transition: transform 0.3s ease;
-    pointer-events: none;
-  }
-
-  .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    nav { padding: 14px 20px; }
-    .nav-tools { display: none; }
-    .hero { padding: 50px 20px 30px; }
-    .hero-stats { gap: 24px; }
-    .tool-body { padding: 20px; }
-    .form-grid { grid-template-columns: 1fr; }
-    .results-grid { grid-template-columns: 1fr; }
-    .tool-header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 10px; }
-  }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  
+  /* Modes Toggle styling */
+  .toggle-group { display: flex; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 20px; }
+  .toggle-btn { flex: 1; padding: 10px; border: none; border-radius: 9px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); background: transparent; }
+  .toggle-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
 </style>
 </head>
 <body>
 
 <div class="bg-grid"></div>
 <div class="bg-orb1"></div>
-<div class="bg-orb2"></div>
 <div class="toast" id="toast">✓ Copied to clipboard!</div>
 
-<!-- NAV -->
 <nav>
   <div class="logo">EU<span>toolbox</span></div>
   <div class="nav-tools">
-    <button class="nav-tool active">VAT Calculator</button>
-    <button class="nav-tool">Invoice Generator</button>
-    <button class="nav-tool">GDPR Generator</button>
+    <button class="nav-tool active" onclick="switchTool('vat-calc')">VAT Calculator</button>
+    <button class="nav-tool" onclick="switchTool('invoice-gen')">Invoice/Payslip</button>
+    <button class="nav-tool" onclick="switchTool('gdpr-gen')">GDPR Generator</button>
   </div>
-  <div class="nav-badge">🇪🇺 Free EU Tools</div>
+  <div class="nav-badge">🇪🇺 2026 Updated</div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-tag">Updated for 2026 · All EU countries included</div>
-  <h1><span class="grad">EU VAT Calculator</span></h1>
-  <p class="hero-sub">Calculate VAT instantly for all 27 EU countries, UK and Switzerland. Free, fast, accurate — no signup required.</p>
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">29</div>
-      <div class="stat-label">Countries</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Free forever</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">2026</div>
-      <div class="stat-label">Rates updated</div>
-    </div>
-  </div>
-</section>
-
-<!-- MAIN TOOL -->
 <main class="main">
-  <div class="tool-wrapper">
-    <div class="tool-header">
-      <div class="tool-title">
-        <div class="tool-icon">🧮</div>
-        VAT Calculator
+
+  <section id="vat-calc" class="tool-section active">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <div class="tool-title"><div class="tool-icon">🧮</div> VAT Calculator</div>
+        <div class="updated-badge" style="color:var(--green); font-size:11px; font-family:var(--mono);">✓ Jan 2026 Rates</div>
       </div>
-      <div class="updated-badge">✓ Rates updated Jan 2026</div>
-    </div>
-
-    <div class="tool-body">
-
-      <!-- TOGGLE -->
-      <div class="toggle-group">
-        <button class="toggle-btn active" onclick="setMode('add')" id="btn-add">Add VAT to price</button>
-        <button class="toggle-btn" onclick="setMode('remove')" id="btn-remove">Remove VAT from price</button>
-        <button class="toggle-btn" onclick="setMode('check')" id="btn-check">VAT amount only</button>
-      </div>
-
-      <!-- FORM -->
-      <div class="form-grid">
+      <div class="tool-body">
+        <div class="toggle-group">
+            <button class="toggle-btn active" id="btn-add" onclick="setMode('add')">Add VAT</button>
+            <button class="toggle-btn" id="btn-remove" onclick="setMode('remove')">Remove VAT</button>
+        </div>
+        <div class="form-grid">
+            <div class="field">
+                <label>Country</label>
+                <select id="country" onchange="updateVatRate()">
+                    <option value="DE|19|€|Germany">🇩🇪 Germany — 19%</option>
+                    <option value="FR|20|€|France">🇫🇷 France — 20%</option>
+                    <option value="NL|21|€|Netherlands">🇳🇱 Netherlands — 21%</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Rate (%)</label>
+                <input type="number" id="vatRate" value="19">
+            </div>
+        </div>
         <div class="field">
-          <label>Select Country</label>
-          <select id="country" onchange="updateVatRate()">
-            <option value="" disabled selected>Choose a country...</option>
-            <optgroup label="🇪🇺 European Union">
-              <option value="AT|20|€|Austria">🇦🇹 Austria — 20%</option>
-              <option value="BE|21|€|Belgium">🇧🇪 Belgium — 21%</option>
-              <option value="BG|20|лв|Bulgaria">🇧🇬 Bulgaria — 20%</option>
-              <option value="HR|25|€|Croatia">🇭🇷 Croatia — 25%</option>
-              <option value="CY|19|€|Cyprus">🇨🇾 Cyprus — 19%</option>
-              <option value="CZ|21|Kč|Czech Republic">🇨🇿 Czech Republic — 21%</option>
-              <option value="DK|25|kr|Denmark">🇩🇰 Denmark — 25%</option>
-              <option value="EE|22|€|Estonia">🇪🇪 Estonia — 22%</option>
-              <option value="FI|25.5|€|Finland">🇫🇮 Finland — 25.5%</option>
-              <option value="FR|20|€|France">🇫🇷 France — 20%</option>
-              <option value="DE|19|€|Germany">🇩🇪 Germany — 19%</option>
-              <option value="GR|24|€|Greece">🇬🇷 Greece — 24%</option>
-              <option value="HU|27|Ft|Hungary">🇭🇺 Hungary — 27%</option>
-              <option value="IE|23|€|Ireland">🇮🇪 Ireland — 23%</option>
-              <option value="IT|22|€|Italy">🇮🇹 Italy — 22%</option>
-              <option value="LV|21|€|Latvia">🇱🇻 Latvia — 21%</option>
-              <option value="LT|21|€|Lithuania">🇱🇹 Lithuania — 21%</option>
-              <option value="LU|17|€|Luxembourg">🇱🇺 Luxembourg — 17%</option>
-              <option value="MT|18|€|Malta">🇲🇹 Malta — 18%</option>
-              <option value="NL|21|€|Netherlands">🇳🇱 Netherlands — 21%</option>
-              <option value="PL|23|zł|Poland">🇵🇱 Poland — 23%</option>
-              <option value="PT|23|€|Portugal">🇵🇹 Portugal — 23%</option>
-              <option value="RO|19|lei|Romania">🇷🇴 Romania — 19%</option>
-              <option value="SK|23|€|Slovakia">🇸🇰 Slovakia — 23%</option>
-              <option value="SI|22|€|Slovenia">🇸🇮 Slovenia — 22%</option>
-              <option value="ES|21|€|Spain">🇪🇸 Spain — 21%</option>
-              <option value="SE|25|kr|Sweden">🇸🇪 Sweden — 25%</option>
-            </optgroup>
-            <optgroup label="🌍 Other European Countries">
-              <option value="GB|20|£|United Kingdom">🇬🇧 United Kingdom — 20%</option>
-              <option value="CH|8.1|CHF|Switzerland">🇨🇭 Switzerland — 8.1%</option>
-              <option value="NO|25|kr|Norway">🇳🇴 Norway — 25%</option>
-            </optgroup>
-          </select>
+            <label>Amount</label>
+            <input type="number" id="price" placeholder="0.00">
         </div>
+        <button class="calc-btn" onclick="calculateVAT()">Calculate →</button>
+        
+        <div id="results" style="display:none; margin-top:20px; border-top:1px solid var(--border); padding-top:20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <span style="color:var(--text2)">Total Amount:</span>
+                <span id="res-total" style="font-family:var(--mono); color:var(--accent); font-weight:700; font-size:20px;">—</span>
+            </div>
+            <button class="nav-tool" style="width:100%; border-color:var(--green); color:var(--green);" onclick="copyResults()">Copy Results</button>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section id="invoice-gen" class="tool-section">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <div class="tool-title"><div class="tool-icon">📄</div> Invoice & Payslip Gen</div>
+        <div class="updated-badge" style="color:var(--accent3); font-size:11px; font-family:var(--mono);">PDF Export Ready</div>
+      </div>
+      <div class="tool-body">
+        <div class="toggle-group">
+            <button class="toggle-btn active" id="mode-inv" onclick="setGenMode('invoice')">Tax Invoice</button>
+            <button class="toggle-btn" id="mode-pay" onclick="setGenMode('payslip')">Employee Payslip</button>
+        </div>
+        <div class="form-grid">
+            <div class="field"><label>Your Business Name</label><input type="text" id="biz-name" placeholder="Oxen Hide Ltd"></div>
+            <div class="field"><label>Client/Employee Name</label><input type="text" id="client-name" placeholder="John Doe"></div>
+        </div>
+        <div class="form-grid">
+            <div class="field"><label>Item/Position</label><input type="text" id="inv-item" placeholder="Web Development"></div>
+            <div class="field"><label>Amount (€)</label><input type="number" id="inv-amount" placeholder="0.00"></div>
+        </div>
+        <button class="calc-btn" onclick="generateDocument()">Generate Preview →</button>
+
+        <div id="invoice-preview" class="preview-area">
+            </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gdpr-gen" class="tool-section">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <div class="tool-title"><div class="tool-icon">🛡️</div> GDPR Privacy Generator</div>
+        <div class="updated-badge" style="color:var(--accent2); font-size:11px; font-family:var(--mono);">EU Compliance 2026</div>
+      </div>
+      <div class="tool-body">
+        <div class="field"><label>Website URL</label><input type="text" id="gdpr-url" placeholder="www.example.com"></div>
+        <div class="form-grid">
+            <div class="field"><label>Company Name</label><input type="text" id="gdpr-company" placeholder="Example GmbH"></div>
+            <div class="field"><label>Contact Email</label><input type="email" id="gdpr-email" placeholder="privacy@example.com"></div>
+        </div>
         <div class="field">
-          <label>VAT Rate</label>
-          <div style="position:relative;">
-            <input type="number" id="vatRate" placeholder="Select country first" step="0.1" min="0" max="100" style="font-family:var(--mono); color:var(--accent); font-weight:600; font-size:18px;" oninput="clearResults()">
-            <span style="position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;">%</span>
-          </div>
+            <label>Data Collected</label>
+            <select id="gdpr-data" multiple style="height:100px; padding:10px;">
+                <option value="Email address">Email address</option>
+                <option value="First name and last name">Full Name</option>
+                <option value="Cookies and Usage Data">Cookies & Tracking</option>
+                <option value="Billing Details">Billing Info</option>
+            </select>
         </div>
+        <button class="calc-btn" style="background:var(--accent2);" onclick="generateGDPR()">Generate Policy Text →</button>
+
+        <div id="gdpr-result" class="policy-text">
+            </div>
       </div>
-
-      <div class="field" style="margin-bottom:20px;">
-        <label id="price-label">Price (Enter amount)</label>
-        <div class="price-field">
-          <span class="currency-sym" id="currency-sym">€</span>
-          <input type="number" id="price" placeholder="0.00" step="0.01" min="0" oninput="clearResults()">
-        </div>
-      </div>
-
-      <button class="calc-btn" onclick="calculate()">
-        Calculate VAT →
-      </button>
-
-      <!-- RESULTS -->
-      <div class="results" id="results">
-        <div class="results-header">
-          <div class="results-title">📊 Results</div>
-        </div>
-        <div class="divider"></div>
-
-        <div class="vat-info-bar" id="vat-info-bar">
-          <span class="vat-info-left" id="info-country">Country</span>
-          <span class="vat-info-right" id="info-rate">VAT Rate</span>
-        </div>
-
-        <div class="results-grid">
-          <div class="result-card">
-            <div class="result-label">Price excl. VAT</div>
-            <div class="result-value" id="res-excl">—</div>
-            <div class="result-sub">Net amount</div>
-          </div>
-          <div class="result-card">
-            <div class="result-label">VAT Amount</div>
-            <div class="result-value" id="res-vat">—</div>
-            <div class="result-sub" id="res-vat-pct">—</div>
-          </div>
-          <div class="result-card highlight">
-            <div class="result-label">Price incl. VAT</div>
-            <div class="result-value" id="res-incl">—</div>
-            <div class="result-sub">Gross amount</div>
-          </div>
-        </div>
-
-        <div class="copy-row">
-          <button class="copy-btn" onclick="copyResults()">📋 Copy Results</button>
-          <button class="reset-btn" onclick="resetForm()">↺ Reset</button>
-        </div>
-      </div>
-
     </div>
-  </div>
-
-  <!-- RATES TABLE -->
-  <div class="rates-section">
-    <div class="section-header">
-      <div>
-        <div class="section-title">All EU VAT Rates 2026</div>
-        <div class="section-sub">Click any country to auto-fill the calculator</div>
-      </div>
-      <input type="text" class="search-input" placeholder="🔍 Search country..." oninput="filterCountries(this.value)">
-    </div>
-    <div class="rates-grid" id="rates-grid"></div>
-  </div>
-
-  <!-- AFFILIATE -->
-  <div class="affiliate-section">
-    <div class="affiliate-title">Need accounting software for your business?</div>
-    <div class="affiliate-sub">Our trusted partners — used by thousands of EU businesses</div>
-    <div class="affiliate-cards">
-      <a class="aff-card" href="#" onclick="return false;">
-        <div class="aff-logo">📚</div>
-        <div class="aff-name">QuickBooks</div>
-        <div class="aff-desc">Invoicing, VAT returns & accounting for European freelancers</div>
-        <div class="aff-cta">Try free 30 days →</div>
-      </a>
-      <a class="aff-card" href="#" onclick="return false;">
-        <div class="aff-logo">🔵</div>
-        <div class="aff-name">Xero</div>
-        <div class="aff-desc">EU VAT compliant accounting software for small businesses</div>
-        <div class="aff-cta">Start free trial →</div>
-      </a>
-      <a class="aff-card" href="#" onclick="return false;">
-        <div class="aff-logo">🟠</div>
-        <div class="aff-name">FreshBooks</div>
-        <div class="aff-desc">Simple invoicing and expense tracking for freelancers</div>
-        <div class="aff-cta">Try free 30 days →</div>
-      </a>
-    </div>
-  </div>
+  </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-links">
-    <a href="#">VAT Calculator</a>
-    <a href="#">Invoice Generator</a>
-    <a href="#">GDPR Generator</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Contact</a>
-  </div>
-  <p>© 2026 EUToolbox.com — Free EU Business Tools · VAT rates updated January 2026</p>
-  <p style="margin-top:6px;font-size:11px;color:var(--text3);">For informational purposes only. Always verify with your local tax authority.</p>
+    <p>© 2026 EUToolbox.com — Free EU Business Tools</p>
 </footer>
 
 <script>
-// ALL EU COUNTRIES DATA
-const countries = [
-  { code:'AT', name:'Austria', flag:'🇦🇹', rate:20, currency:'€' },
-  { code:'BE', name:'Belgium', flag:'🇧🇪', rate:21, currency:'€' },
-  { code:'BG', name:'Bulgaria', flag:'🇧🇬', rate:20, currency:'лв' },
-  { code:'HR', name:'Croatia', flag:'🇭🇷', rate:25, currency:'€' },
-  { code:'CY', name:'Cyprus', flag:'🇨🇾', rate:19, currency:'€' },
-  { code:'CZ', name:'Czech Republic', flag:'🇨🇿', rate:21, currency:'Kč' },
-  { code:'DK', name:'Denmark', flag:'🇩🇰', rate:25, currency:'kr' },
-  { code:'EE', name:'Estonia', flag:'🇪🇪', rate:22, currency:'€' },
-  { code:'FI', name:'Finland', flag:'🇫🇮', rate:25.5, currency:'€' },
-  { code:'FR', name:'France', flag:'🇫🇷', rate:20, currency:'€' },
-  { code:'DE', name:'Germany', flag:'🇩🇪', rate:19, currency:'€' },
-  { code:'GR', name:'Greece', flag:'🇬🇷', rate:24, currency:'€' },
-  { code:'HU', name:'Hungary', flag:'🇭🇺', rate:27, currency:'Ft' },
-  { code:'IE', name:'Ireland', flag:'🇮🇪', rate:23, currency:'€' },
-  { code:'IT', name:'Italy', flag:'🇮🇹', rate:22, currency:'€' },
-  { code:'LV', name:'Latvia', flag:'🇱🇻', rate:21, currency:'€' },
-  { code:'LT', name:'Lithuania', flag:'🇱🇹', rate:21, currency:'€' },
-  { code:'LU', name:'Luxembourg', flag:'🇱🇺', rate:17, currency:'€' },
-  { code:'MT', name:'Malta', flag:'🇲🇹', rate:18, currency:'€' },
-  { code:'NL', name:'Netherlands', flag:'🇳🇱', rate:21, currency:'€' },
-  { code:'PL', name:'Poland', flag:'🇵🇱', rate:23, currency:'zł' },
-  { code:'PT', name:'Portugal', flag:'🇵🇹', rate:23, currency:'€' },
-  { code:'RO', name:'Romania', flag:'🇷🇴', rate:19, currency:'lei' },
-  { code:'SK', name:'Slovakia', flag:'🇸🇰', rate:23, currency:'€' },
-  { code:'SI', name:'Slovenia', flag:'🇸🇮', rate:22, currency:'€' },
-  { code:'ES', name:'Spain', flag:'🇪🇸', rate:21, currency:'€' },
-  { code:'SE', name:'Sweden', flag:'🇸🇪', rate:25, currency:'kr' },
-  { code:'GB', name:'United Kingdom', flag:'🇬🇧', rate:20, currency:'£' },
-  { code:'CH', name:'Switzerland', flag:'🇨🇭', rate:8.1, currency:'CHF' },
-  { code:'NO', name:'Norway', flag:'🇳🇴', rate:25, currency:'kr' },
-];
-
-let currentMode = 'add';
-let currentCurrency = '€';
-let selectedCountry = null;
-
-// RENDER RATES GRID
-function renderRates(filter = '') {
-  const grid = document.getElementById('rates-grid');
-  const filtered = countries.filter(c =>
-    c.name.toLowerCase().includes(filter.toLowerCase()) ||
-    c.code.toLowerCase().includes(filter.toLowerCase())
-  );
-  grid.innerHTML = filtered.map(c => `
-    <div class="rate-card ${selectedCountry === c.code ? 'selected' : ''}"
-         onclick="selectCountry('${c.code}|${c.rate}|${c.currency}|${c.name}', '${c.code}')">
-      <div class="country-info">
-        <span class="country-flag">${c.flag}</span>
-        <div>
-          <div class="country-name">${c.name}</div>
-          <div class="country-code">${c.code}</div>
-        </div>
-      </div>
-      <div class="vat-rate">${c.rate}%</div>
-    </div>
-  `).join('');
+// --- NAVIGATION LOGIC ---
+function switchTool(sectionId) {
+    document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tool').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(sectionId).classList.add('active');
+    event.currentTarget.classList.add('active');
 }
 
-function filterCountries(val) {
-  renderRates(val);
+// --- 1. VAT LOGIC (Aapka Existing System) ---
+let vatMode = 'add';
+function setMode(m) {
+    vatMode = m;
+    document.getElementById('btn-add').classList.toggle('active', m==='add');
+    document.getElementById('btn-remove').classList.toggle('active', m==='remove');
 }
-
-function selectCountry(val, code) {
-  selectedCountry = code;
-  const sel = document.getElementById('country');
-  for (let i = 0; i < sel.options.length; i++) {
-    if (sel.options[i].value === val) {
-      sel.value = val;
-      break;
-    }
-  }
-  updateVatRate();
-  renderRates(document.querySelector('.search-input').value);
-  document.querySelector('.tool-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
 function updateVatRate() {
-  const sel = document.getElementById('country');
-  const val = sel.value;
-  if (!val) return;
-  const parts = val.split('|');
-  document.getElementById('vatRate').value = parts[1];
-  currentCurrency = parts[2];
-  document.getElementById('currency-sym').textContent = currentCurrency;
-  selectedCountry = parts[0];
-  clearResults();
-  renderRates(document.querySelector('.search-input').value);
+    const val = document.getElementById('country').value.split('|');
+    document.getElementById('vatRate').value = val[1];
+}
+function calculateVAT() {
+    const price = parseFloat(document.getElementById('price').value);
+    const rate = parseFloat(document.getElementById('vatRate').value);
+    const resDiv = document.getElementById('results');
+    const resTotal = document.getElementById('res-total');
+    
+    if(!price) return;
+    let total = (vatMode === 'add') ? price * (1 + rate/100) : price / (1 + rate/100);
+    
+    resTotal.innerText = '€' + total.toFixed(2);
+    resDiv.style.display = 'block';
 }
 
-function setMode(mode) {
-  currentMode = mode;
-  ['add','remove','check'].forEach(m => {
-    document.getElementById('btn-'+m).classList.toggle('active', m === mode);
-  });
-  const labels = {
-    add: 'Price excluding VAT',
-    remove: 'Price including VAT',
-    check: 'Price (any amount)'
-  };
-  document.getElementById('price-label').textContent = labels[mode];
-  clearResults();
+// --- 2. INVOICE/PAYSLIP LOGIC ---
+let genMode = 'invoice';
+function setGenMode(m) {
+    genMode = m;
+    document.getElementById('mode-inv').classList.toggle('active', m==='invoice');
+    document.getElementById('mode-pay').classList.toggle('active', m==='payslip');
+}
+function generateDocument() {
+    const biz = document.getElementById('biz-name').value || 'My Business';
+    const client = document.getElementById('client-name').value || 'Valued Client';
+    const amount = document.getElementById('inv-amount').value || '0.00';
+    const item = document.getElementById('inv-item').value || 'Service';
+    const preview = document.getElementById('invoice-preview');
+
+    const date = new Date().toLocaleDateString();
+    
+    preview.innerHTML = `
+        <div style="border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 20px;">
+            <h2 style="text-transform:uppercase;">${genMode === 'invoice' ? 'Tax Invoice' : 'Salary Payslip'}</h2>
+            <p>Date: ${date} | Ref: #2026-001</p>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:40px;">
+            <div><strong>From:</strong><br>${biz}</div>
+            <div><strong>To:</strong><br>${client}</div>
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+            <tr style="background:#f4f4f4;">
+                <th style="padding:10px; text-align:left;">Description</th>
+                <th style="padding:10px; text-align:right;">Total</th>
+            </tr>
+            <tr>
+                <td style="padding:15px; border-bottom:1px solid #eee;">${item}</td>
+                <td style="padding:15px; border-bottom:1px solid #eee; text-align:right;">€${parseFloat(amount).toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td style="padding:15px; text-align:right;"><strong>Grand Total:</strong></td>
+                <td style="padding:15px; text-align:right; font-size:18px;"><strong>€${parseFloat(amount).toFixed(2)}</strong></td>
+            </tr>
+        </table>
+        <p style="margin-top:40px; font-size:10px; color:#666; text-align:center;">Generated via EUToolbox.com - Digital Compliance Suite</p>
+    `;
+    preview.style.display = 'block';
+    preview.scrollIntoView({ behavior: 'smooth' });
 }
 
-function fmt(num, currency) {
-  return currency + ' ' + num.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// --- 3. GDPR LOGIC ---
+function generateGDPR() {
+    const url = document.getElementById('gdpr-url').value || 'yourwebsite.com';
+    const comp = document.getElementById('gdpr-company').value || 'Your Company';
+    const email = document.getElementById('gdpr-email').value || 'contact@example.com';
+    const dataOptions = Array.from(document.getElementById('gdpr-data').selectedOptions).map(o => o.value);
+    
+    const resultDiv = document.getElementById('gdpr-result');
+    const text = `PRIVACY POLICY\nLast Updated: May 2026\n\nAt ${comp}, we are committed to protecting your personal data in compliance with EU GDPR 2026 regulations. 
+
+1. DATA COLLECTION: We collect ${dataOptions.join(', ')} to provide and maintain our service at ${url}.
+
+2. LEGAL BASIS: We process data based on your consent and for the performance of contracts.
+
+3. YOUR RIGHTS: Under GDPR, you have the right to access, rectify, or erase your personal data. 
+
+4. CONTACT: For any data-related queries, please contact our Data Protection Officer at: ${email}.
+
+This policy was generated for ${url}. All rights reserved.`;
+
+    resultDiv.innerText = text;
+    resultDiv.style.display = 'block';
 }
 
-function calculate() {
-  const rate = parseFloat(document.getElementById('vatRate').value);
-  const price = parseFloat(document.getElementById('price').value);
-  const sel = document.getElementById('country');
-  const parts = sel.value ? sel.value.split('|') : null;
-  const countryName = parts ? parts[3] : 'Unknown';
-
-  if (isNaN(rate) || isNaN(price) || price < 0) {
-    alert('Please select a country and enter a valid price.');
-    return;
-  }
-
-  let excl, vat, incl;
-
-  if (currentMode === 'add') {
-    excl = price;
-    vat = price * (rate / 100);
-    incl = price + vat;
-  } else if (currentMode === 'remove') {
-    incl = price;
-    excl = price / (1 + rate / 100);
-    vat = incl - excl;
-  } else {
-    excl = price;
-    vat = price * (rate / 100);
-    incl = price + vat;
-  }
-
-  document.getElementById('res-excl').textContent = fmt(excl, currentCurrency);
-  document.getElementById('res-vat').textContent = fmt(vat, currentCurrency);
-  document.getElementById('res-incl').textContent = fmt(incl, currentCurrency);
-  document.getElementById('res-vat-pct').textContent = rate + '% VAT rate';
-  document.getElementById('info-country').textContent = '📍 ' + countryName;
-  document.getElementById('info-rate').textContent = rate + '% VAT';
-
-  document.getElementById('results').classList.add('show');
-}
-
-function clearResults() {
-  document.getElementById('results').classList.remove('show');
-}
-
-function resetForm() {
-  document.getElementById('country').selectedIndex = 0;
-  document.getElementById('vatRate').value = '';
-  document.getElementById('price').value = '';
-  currentCurrency = '€';
-  document.getElementById('currency-sym').textContent = '€';
-  selectedCountry = null;
-  clearResults();
-  renderRates();
-}
-
+// --- UTILS ---
 function copyResults() {
-  const excl = document.getElementById('res-excl').textContent;
-  const vat = document.getElementById('res-vat').textContent;
-  const incl = document.getElementById('res-incl').textContent;
-  const country = document.getElementById('info-country').textContent;
-  const rate = document.getElementById('info-rate').textContent;
-
-  const text = `EU VAT Calculation — EUToolbox.com\n${country} | ${rate}\n\nPrice excl. VAT: ${excl}\nVAT Amount: ${vat}\nPrice incl. VAT: ${incl}`;
-
-  navigator.clipboard.writeText(text).then(() => {
+    const val = document.getElementById('res-total').innerText;
+    navigator.clipboard.writeText(val);
     const toast = document.getElementById('toast');
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-  });
+    setTimeout(() => toast.classList.remove('show'), 2000);
 }
-
-// INIT
-renderRates();
 </script>
+
 </body>
 </html>
