@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EUToolbox — Free EU Business Tools 2026</title>
-<meta name="description" content="Free EU VAT Calculator and Invoice Generator for all 27 EU countries plus UK and Switzerland. Calculate VAT and create professional invoices instantly.">
+<meta name="description" content="Free EU VAT Calculator, Invoice Generator and GDPR Privacy Policy Generator for all 27 EU countries plus UK and Switzerland.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -322,13 +322,14 @@
   .vat-info-right { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 15px; }
 
   .copy-row { display: flex; gap: 10px; }
-  .copy-btn, .reset-btn {
+  .copy-btn, .reset-btn, .dl-btn {
     flex: 1; padding: 12px;
     border-radius: 10px; border: 1px solid var(--border2);
     font-family: var(--sans); font-size: 13px; font-weight: 500;
     cursor: pointer; transition: all 0.2s; color: var(--text2); background: transparent;
   }
   .copy-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.06); }
+  .dl-btn:hover { border-color: var(--green); color: var(--green); background: rgba(16,185,129,0.06); }
   .reset-btn:hover { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.06); }
 
   /* RATES TABLE */
@@ -369,8 +370,6 @@
     display: grid; grid-template-columns: 1fr 420px;
     gap: 24px; align-items: start;
   }
-
-  /* Form panel */
   .form-panel {
     background: var(--card); border: 1px solid var(--border2);
     border-radius: 24px; overflow: hidden; box-shadow: var(--shadow);
@@ -407,7 +406,6 @@
     text-transform: uppercase; letter-spacing: 0.07em;
   }
 
-  /* Line items */
   .items-header {
     display: grid; grid-template-columns: 3fr 60px 110px 30px;
     gap: 8px; margin-bottom: 8px; padding: 0 2px;
@@ -457,7 +455,6 @@
   }
   .with-pct input { padding-right: 28px; }
 
-  /* Generate button */
   .gen-btn {
     width: 100%; padding: 15px; border: none; border-radius: 14px;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -474,7 +471,6 @@
   .gen-btn:hover::before { opacity: 1; }
   .gen-btn:active { transform: translateY(0); }
 
-  /* Action buttons */
   .action-row { display: flex; gap: 10px; margin-top: 14px; }
   .act-btn {
     flex: 1; padding: 11px; border-radius: 10px;
@@ -487,7 +483,6 @@
   .act-copy:hover { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.06) !important; }
   .act-reset:hover { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.06) !important; }
 
-  /* Preview panel */
   .preview-panel {
     position: sticky; top: 80px;
     background: var(--card); border: 1px solid var(--border2);
@@ -503,7 +498,6 @@
   .preview-status.empty { background: var(--bg2); color: var(--text3); }
   .preview-status.ready { background: rgba(16,185,129,0.12); color: var(--green); }
 
-  /* The invoice document inside preview */
   .invoice-doc {
     padding: 28px 24px; font-size: 13px; line-height: 1.6;
     color: var(--text); min-height: 400px; font-family: var(--sans);
@@ -562,6 +556,192 @@
   .aff-desc { font-size: 12px; color: var(--text2); margin-bottom: 10px; line-height: 1.4; }
   .aff-cta { font-size: 12px; color: var(--accent); font-weight: 500; }
 
+  /* ========= GDPR GENERATOR STYLES ========= */
+  .gdpr-wrapper {
+    background: var(--card); border: 1px solid var(--border2);
+    border-radius: 24px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .gdpr-header {
+    padding: 28px 32px 24px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, rgba(79,110,247,0.06), rgba(6,182,212,0.03));
+  }
+  .gdpr-stepper {
+    display: flex; align-items: center; gap: 0; margin-bottom: 28px;
+  }
+  .gdpr-step {
+    display: flex; align-items: center; gap: 8px; flex: 1;
+  }
+  .gdpr-step-num {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; transition: all 0.3s;
+    border: 2px solid rgba(99,120,255,0.3); color: var(--text3);
+    background: var(--bg2);
+  }
+  .gdpr-step-num.active { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.1); }
+  .gdpr-step-num.done {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-color: transparent; color: white;
+  }
+  .gdpr-step-label { font-size: 11px; color: var(--text3); font-weight: 500; white-space: nowrap; }
+  .gdpr-step-label.active { color: var(--text2); }
+  .gdpr-step-line { flex: 1; height: 1px; background: var(--border2); margin: 0 8px; }
+
+  .gdpr-progress {
+    height: 3px; background: rgba(99,120,255,0.15); border-radius: 2px; margin-bottom: 28px;
+  }
+  .gdpr-progress-bar {
+    height: 100%; border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.4s ease;
+  }
+
+  .gdpr-panel { display: none; }
+  .gdpr-panel.active { display: block; animation: fadeInUp 0.35s ease; }
+
+  .gdpr-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .gdpr-field { display: flex; flex-direction: column; gap: 6px; }
+  .gdpr-label {
+    font-size: 11px; font-weight: 600; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .gdpr-input {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 12px; color: var(--text); font-family: var(--sans);
+    font-size: 14px; padding: 13px 16px; transition: all 0.2s; outline: none;
+    appearance: none; -webkit-appearance: none;
+  }
+  .gdpr-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,110,247,0.15); background: var(--bg3); }
+  .gdpr-input.error { border-color: var(--red); }
+  .gdpr-error { font-size: 11px; color: var(--red); margin-top: 3px; display: none; }
+  .gdpr-error.show { display: block; }
+
+  .gdpr-check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
+  .gdpr-check-card {
+    display: flex; align-items: flex-start; gap: 12px; padding: 13px 14px;
+    border-radius: 12px; border: 1px solid var(--border); background: rgba(15,22,41,0.5);
+    cursor: pointer; transition: all 0.2s; user-select: none;
+  }
+  .gdpr-check-card:hover { border-color: rgba(79,110,247,0.4); }
+  .gdpr-check-card.checked { border-color: rgba(79,110,247,0.5); background: rgba(79,110,247,0.08); }
+  .gdpr-checkbox {
+    width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0; margin-top: 1px;
+    border: 2px solid rgba(99,120,255,0.3); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; font-size: 11px;
+  }
+  .gdpr-check-card.checked .gdpr-checkbox {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-color: transparent; color: white;
+  }
+  .gdpr-check-label { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
+  .gdpr-check-desc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  .gdpr-toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-radius: 12px;
+    border: 1px solid var(--border); background: rgba(15,22,41,0.5);
+    margin-bottom: 12px;
+  }
+  .gdpr-toggle-info .gdpr-check-label { font-size: 14px; }
+  .gdpr-switch {
+    width: 46px; height: 25px; border-radius: 13px;
+    background: rgba(99,120,255,0.15); border: none; cursor: pointer;
+    padding: 3px; transition: all 0.25s; position: relative; flex-shrink: 0;
+  }
+  .gdpr-switch.on { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+  .gdpr-switch-knob {
+    width: 19px; height: 19px; border-radius: 50%; background: white;
+    position: absolute; top: 3px; left: 3px;
+    transition: transform 0.25s; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .gdpr-switch.on .gdpr-switch-knob { transform: translateX(21px); }
+
+  .gdpr-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px; border-top: 1px solid var(--border);
+    background: rgba(15,22,41,0.4);
+  }
+  .gdpr-back-btn {
+    display: flex; align-items: center; gap: 6px; padding: 10px 18px;
+    border-radius: 10px; border: 1px solid var(--border2); background: transparent;
+    color: var(--text2); font-family: var(--sans); font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .gdpr-back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .gdpr-next-btn {
+    display: flex; align-items: center; gap: 6px; padding: 11px 22px;
+    border-radius: 10px; border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; font-family: var(--sans); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(79,110,247,0.3);
+  }
+  .gdpr-next-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(79,110,247,0.4); }
+  .gdpr-gen-btn {
+    display: flex; align-items: center; gap: 6px; padding: 11px 22px;
+    border-radius: 10px; border: none;
+    background: linear-gradient(135deg, var(--green), var(--accent3));
+    color: white; font-family: var(--sans); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+  }
+  .gdpr-gen-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(16,185,129,0.4); }
+
+  .gdpr-output { display: none; }
+  .gdpr-output.show { display: block; animation: fadeInUp 0.4s ease; }
+  .gdpr-output-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px; flex-wrap: wrap; gap: 12px;
+  }
+  .gdpr-output-title {
+    font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+  }
+  .gdpr-output-title .ok-dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--accent3));
+    display: flex; align-items: center; justify-content: center; font-size: 11px;
+  }
+  .gdpr-output-actions { display: flex; gap: 8px; }
+  .gdpr-act-btn {
+    display: flex; align-items: center; gap: 6px; padding: 10px 16px;
+    border-radius: 10px; font-family: var(--sans); font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .gdpr-act-copy { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; }
+  .gdpr-act-dl { background: linear-gradient(135deg, var(--green), var(--accent3)); color: white; }
+  .gdpr-act-restart {
+    background: transparent; border: 1px solid var(--border2) !important;
+    border: none; color: var(--text2);
+  }
+  .gdpr-act-restart:hover { border-color: var(--accent); color: var(--accent); }
+  .gdpr-textarea {
+    width: 100%; min-height: 480px; background: rgba(10,15,30,0.8);
+    border: 1px solid var(--border2); border-radius: 14px;
+    color: #c9d1e9; font-family: var(--mono); font-size: 12px;
+    line-height: 1.8; padding: 20px 24px; resize: vertical; outline: none;
+    box-sizing: border-box;
+  }
+  .gdpr-badges { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .gdpr-badge {
+    font-size: 11px; padding: 4px 12px; border-radius: 20px;
+  }
+  .gdpr-badge-green { color: var(--green); border: 1px solid rgba(16,185,129,0.3); background: rgba(16,185,129,0.06); }
+  .gdpr-badge-blue { color: var(--accent); border: 1px solid rgba(79,110,247,0.3); background: rgba(79,110,247,0.06); }
+  .gdpr-badge-muted { color: var(--text3); border: 1px solid var(--border); background: transparent; }
+
+  .gdpr-feature-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px;
+  }
+  .gdpr-feature-card {
+    background: rgba(17,24,39,0.7); border: 1px solid var(--border);
+    border-radius: 16px; padding: 18px 20px; text-align: center;
+  }
+  .gdpr-feature-icon { font-size: 22px; margin-bottom: 8px; }
+  .gdpr-feature-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .gdpr-feature-desc { font-size: 11px; color: var(--text3); }
+
   /* FOOTER */
   footer {
     position: relative; z-index: 1; text-align: center;
@@ -590,6 +770,8 @@
     .preview-panel { position: relative; top: 0; }
     .inv-form-grid { grid-template-columns: 1fr; }
     .inv-form-grid-3 { grid-template-columns: 1fr 1fr; }
+    .gdpr-check-grid { grid-template-columns: 1fr; }
+    .gdpr-feature-cards { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {
     nav { padding: 14px 20px; }
@@ -602,6 +784,8 @@
     .tool-header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 10px; }
     .tab-btn { font-size: 12px; padding: 10px 12px; }
     .items-header, .item-row { grid-template-columns: 2fr 45px 90px 26px; }
+    .gdpr-form-grid { grid-template-columns: 1fr; }
+    .gdpr-output-actions { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -610,27 +794,27 @@
 <div class="bg-grid"></div>
 <div class="bg-orb1"></div>
 <div class="bg-orb2"></div>
-<div class="toast" id="toast">✓ Done!</div>
+<div class="toast" id="toast">Done!</div>
 
 <!-- NAV -->
 <nav>
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">EU<span>toolbox</span></div>
   <div class="nav-tools">
-    <button class="nav-tool active" id="nav-vat" onclick="switchTool('vat')">🧮 VAT Calculator</button>
-    <button class="nav-tool" id="nav-inv" onclick="switchTool('invoice')">📄 Invoice Generator</button>
-    <button class="nav-tool">🔒 GDPR Generator</button>
+    <button class="nav-tool active" id="nav-vat" onclick="switchTool('vat')">VAT Calculator</button>
+    <button class="nav-tool" id="nav-inv" onclick="switchTool('invoice')">Invoice Generator</button>
+    <button class="nav-tool" id="nav-gdpr" onclick="switchTool('gdpr')">GDPR Generator</button>
   </div>
-  <div class="nav-badge">🇪🇺 Free EU Tools</div>
+  <div class="nav-badge">Free EU Tools</div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="hero-vat">
+<section class="hero">
   <div class="hero-tag">Updated for 2026 · All EU countries included</div>
   <h1><span class="grad">EU Business Toolbox</span></h1>
-  <p class="hero-sub">Free tools for EU businesses — VAT calculator, invoice generator, and more. No signup, no fees, forever free.</p>
+  <p class="hero-sub">Free tools for EU businesses — VAT calculator, invoice generator, and GDPR policy generator. No signup, no fees, forever free.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">29</div><div class="stat-label">Countries</div></div>
-    <div class="stat"><div class="stat-num">2</div><div class="stat-label">Free Tools</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Free Tools</div></div>
     <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Rates Updated</div></div>
   </div>
 </section>
@@ -640,12 +824,9 @@
 
   <!-- TAB SWITCHER -->
   <div class="tab-switcher">
-    <button class="tab-btn active" id="tab-vat" onclick="switchTool('vat')">
-      🧮 VAT Calculator
-    </button>
-    <button class="tab-btn" id="tab-inv" onclick="switchTool('invoice')">
-      📄 Invoice Generator
-    </button>
+    <button class="tab-btn active" id="tab-vat" onclick="switchTool('vat')">VAT Calculator</button>
+    <button class="tab-btn" id="tab-inv" onclick="switchTool('invoice')">Invoice Generator</button>
+    <button class="tab-btn" id="tab-gdpr" onclick="switchTool('gdpr')">GDPR Generator</button>
   </div>
 
   <!-- ====== VAT CALCULATOR PANEL ====== -->
@@ -657,56 +838,54 @@
           <div class="tool-icon">🧮</div>
           VAT Calculator
         </div>
-        <div class="updated-badge">✓ Rates updated Jan 2026</div>
+        <div class="updated-badge">Rates updated Jan 2026</div>
       </div>
 
       <div class="tool-body">
-        <!-- TOGGLE -->
         <div class="toggle-group">
           <button class="toggle-btn active" onclick="setMode('add')" id="btn-add">Add VAT to price</button>
           <button class="toggle-btn" onclick="setMode('remove')" id="btn-remove">Remove VAT from price</button>
           <button class="toggle-btn" onclick="setMode('check')" id="btn-check">VAT amount only</button>
         </div>
 
-        <!-- FORM -->
         <div class="form-grid">
           <div class="field">
             <label>Select Country</label>
             <select id="vat-country" onchange="updateVatRate()">
               <option value="" disabled selected>Choose a country...</option>
-              <optgroup label="🇪🇺 European Union">
-                <option value="AT|20|€|Austria">🇦🇹 Austria — 20%</option>
-                <option value="BE|21|€|Belgium">🇧🇪 Belgium — 21%</option>
-                <option value="BG|20|лв|Bulgaria">🇧🇬 Bulgaria — 20%</option>
-                <option value="HR|25|€|Croatia">🇭🇷 Croatia — 25%</option>
-                <option value="CY|19|€|Cyprus">🇨🇾 Cyprus — 19%</option>
-                <option value="CZ|21|Kč|Czech Republic">🇨🇿 Czech Republic — 21%</option>
-                <option value="DK|25|kr|Denmark">🇩🇰 Denmark — 25%</option>
-                <option value="EE|22|€|Estonia">🇪🇪 Estonia — 22%</option>
-                <option value="FI|25.5|€|Finland">🇫🇮 Finland — 25.5%</option>
-                <option value="FR|20|€|France">🇫🇷 France — 20%</option>
-                <option value="DE|19|€|Germany">🇩🇪 Germany — 19%</option>
-                <option value="GR|24|€|Greece">🇬🇷 Greece — 24%</option>
-                <option value="HU|27|Ft|Hungary">🇭🇺 Hungary — 27%</option>
-                <option value="IE|23|€|Ireland">🇮🇪 Ireland — 23%</option>
-                <option value="IT|22|€|Italy">🇮🇹 Italy — 22%</option>
-                <option value="LV|21|€|Latvia">🇱🇻 Latvia — 21%</option>
-                <option value="LT|21|€|Lithuania">🇱🇹 Lithuania — 21%</option>
-                <option value="LU|17|€|Luxembourg">🇱🇺 Luxembourg — 17%</option>
-                <option value="MT|18|€|Malta">🇲🇹 Malta — 18%</option>
-                <option value="NL|21|€|Netherlands">🇳🇱 Netherlands — 21%</option>
-                <option value="PL|23|zł|Poland">🇵🇱 Poland — 23%</option>
-                <option value="PT|23|€|Portugal">🇵🇹 Portugal — 23%</option>
-                <option value="RO|19|lei|Romania">🇷🇴 Romania — 19%</option>
-                <option value="SK|23|€|Slovakia">🇸🇰 Slovakia — 23%</option>
-                <option value="SI|22|€|Slovenia">🇸🇮 Slovenia — 22%</option>
-                <option value="ES|21|€|Spain">🇪🇸 Spain — 21%</option>
-                <option value="SE|25|kr|Sweden">🇸🇪 Sweden — 25%</option>
+              <optgroup label="European Union">
+                <option value="AT|20|€|Austria">Austria — 20%</option>
+                <option value="BE|21|€|Belgium">Belgium — 21%</option>
+                <option value="BG|20|лв|Bulgaria">Bulgaria — 20%</option>
+                <option value="HR|25|€|Croatia">Croatia — 25%</option>
+                <option value="CY|19|€|Cyprus">Cyprus — 19%</option>
+                <option value="CZ|21|Kč|Czech Republic">Czech Republic — 21%</option>
+                <option value="DK|25|kr|Denmark">Denmark — 25%</option>
+                <option value="EE|22|€|Estonia">Estonia — 22%</option>
+                <option value="FI|25.5|€|Finland">Finland — 25.5%</option>
+                <option value="FR|20|€|France">France — 20%</option>
+                <option value="DE|19|€|Germany">Germany — 19%</option>
+                <option value="GR|24|€|Greece">Greece — 24%</option>
+                <option value="HU|27|Ft|Hungary">Hungary — 27%</option>
+                <option value="IE|23|€|Ireland">Ireland — 23%</option>
+                <option value="IT|22|€|Italy">Italy — 22%</option>
+                <option value="LV|21|€|Latvia">Latvia — 21%</option>
+                <option value="LT|21|€|Lithuania">Lithuania — 21%</option>
+                <option value="LU|17|€|Luxembourg">Luxembourg — 17%</option>
+                <option value="MT|18|€|Malta">Malta — 18%</option>
+                <option value="NL|21|€|Netherlands">Netherlands — 21%</option>
+                <option value="PL|23|zł|Poland">Poland — 23%</option>
+                <option value="PT|23|€|Portugal">Portugal — 23%</option>
+                <option value="RO|19|lei|Romania">Romania — 19%</option>
+                <option value="SK|23|€|Slovakia">Slovakia — 23%</option>
+                <option value="SI|22|€|Slovenia">Slovenia — 22%</option>
+                <option value="ES|21|€|Spain">Spain — 21%</option>
+                <option value="SE|25|kr|Sweden">Sweden — 25%</option>
               </optgroup>
-              <optgroup label="🌍 Other European Countries">
-                <option value="GB|20|£|United Kingdom">🇬🇧 United Kingdom — 20%</option>
-                <option value="CH|8.1|CHF|Switzerland">🇨🇭 Switzerland — 8.1%</option>
-                <option value="NO|25|kr|Norway">🇳🇴 Norway — 25%</option>
+              <optgroup label="Other European Countries">
+                <option value="GB|20|£|United Kingdom">United Kingdom — 20%</option>
+                <option value="CH|8.1|CHF|Switzerland">Switzerland — 8.1%</option>
+                <option value="NO|25|kr|Norway">Norway — 25%</option>
               </optgroup>
             </select>
           </div>
@@ -729,10 +908,9 @@
 
         <button class="calc-btn" onclick="calculate()">Calculate VAT →</button>
 
-        <!-- RESULTS -->
         <div class="results" id="results">
           <div class="results-header">
-            <div class="results-title">📊 Results</div>
+            <div class="results-title">Results</div>
           </div>
           <div class="divider"></div>
           <div class="vat-info-bar">
@@ -757,26 +935,25 @@
             </div>
           </div>
           <div class="copy-row">
-            <button class="copy-btn" onclick="copyVatResults()">📋 Copy Results</button>
-            <button class="reset-btn" onclick="resetVatForm()">↺ Reset</button>
+            <button class="copy-btn" onclick="copyVatResults()">Copy Results</button>
+            <button class="dl-btn" onclick="downloadVatResults()">Download .txt</button>
+            <button class="reset-btn" onclick="resetVatForm()">Reset</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- RATES TABLE -->
     <div class="rates-section">
       <div class="section-header">
         <div>
           <div class="section-title">All EU VAT Rates 2026</div>
           <div class="section-sub">Click any country to auto-fill the calculator</div>
         </div>
-        <input type="text" class="search-input" id="rates-search" placeholder="🔍 Search country..." oninput="filterCountries(this.value)">
+        <input type="text" class="search-input" id="rates-search" placeholder="Search country..." oninput="filterCountries(this.value)">
       </div>
       <div class="rates-grid" id="rates-grid"></div>
     </div>
 
-    <!-- AFFILIATE -->
     <div class="affiliate-section">
       <div class="affiliate-title">Need accounting software for your business?</div>
       <div class="affiliate-sub">Our trusted partners — used by thousands of EU businesses</div>
@@ -790,14 +967,14 @@
         <a class="aff-card" href="#" onclick="return false;">
           <div class="aff-logo">🔵</div>
           <div class="aff-name">Xero</div>
-          <div class="aff-desc">EU VAT compliant accounting software for small businesses</div>
+          <div class="aff-desc">Recurring invoices, EU VAT reports & real-time accounting</div>
           <div class="aff-cta">Start free trial →</div>
         </a>
         <a class="aff-card" href="#" onclick="return false;">
-          <div class="aff-logo">🟠</div>
-          <div class="aff-name">FreshBooks</div>
-          <div class="aff-desc">Simple invoicing and expense tracking for freelancers</div>
-          <div class="aff-cta">Try free 30 days →</div>
+          <div class="aff-logo">📦</div>
+          <div class="aff-name">Sage</div>
+          <div class="aff-desc">EU-focused accounting with built-in VAT automation</div>
+          <div class="aff-cta">Explore Sage →</div>
         </a>
       </div>
     </div>
@@ -806,191 +983,154 @@
 
   <!-- ====== INVOICE GENERATOR PANEL ====== -->
   <div class="tool-panel" id="panel-inv">
-
     <div class="inv-layout">
 
-      <!-- FORM PANEL -->
-      <div>
-        <div class="form-panel">
-          <div class="panel-head">
-            <div class="panel-icon">📄</div>
-            <div>
-              <div class="panel-title">Invoice Details</div>
-              <div class="panel-sub">Fill in your information to generate a professional invoice</div>
-            </div>
-          </div>
-          <div class="panel-body">
-
-            <!-- FROM -->
-            <div class="sec-label">Your Details (From)</div>
-            <div class="inv-form-grid">
-              <div class="inv-field">
-                <label class="inv-label">Your Name / Company</label>
-                <input type="text" id="from-name" placeholder="Acme GmbH" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">Email Address</label>
-                <input type="email" id="from-email" placeholder="you@company.com" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">Address</label>
-                <input type="text" id="from-addr" placeholder="123 Main Street, Berlin" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">VAT Number (optional)</label>
-                <input type="text" id="from-vat" placeholder="DE123456789" oninput="invLiveUpdate()">
-              </div>
-            </div>
-
-            <div class="sec-divider"></div>
-
-            <!-- TO -->
-            <div class="sec-label">Client Details (Bill To)</div>
-            <div class="inv-form-grid">
-              <div class="inv-field">
-                <label class="inv-label">Client Name / Company</label>
-                <input type="text" id="to-name" placeholder="Client Ltd." oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">Client Email</label>
-                <input type="email" id="to-email" placeholder="client@company.com" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field full">
-                <label class="inv-label">Client Address</label>
-                <input type="text" id="to-addr" placeholder="456 Business Ave, Amsterdam" oninput="invLiveUpdate()">
-              </div>
-            </div>
-
-            <div class="sec-divider"></div>
-
-            <!-- INVOICE META -->
-            <div class="sec-label">Invoice Information</div>
-            <div class="inv-form-grid-3">
-              <div class="inv-field">
-                <label class="inv-label">Invoice Number</label>
-                <input type="text" id="inv-num" placeholder="INV-001" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">Issue Date</label>
-                <input type="text" id="inv-date" placeholder="2026-01-01" oninput="invLiveUpdate()">
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">Due Date</label>
-                <input type="text" id="inv-due" placeholder="2026-01-31" oninput="invLiveUpdate()">
-              </div>
-            </div>
-
-            <div class="sec-divider"></div>
-
-            <!-- LINE ITEMS -->
-            <div class="sec-label">Services / Line Items</div>
-            <div class="items-header">
-              <span>Description</span>
-              <span>Qty</span>
-              <span>Unit Price</span>
-              <span></span>
-            </div>
-            <div id="items-container"></div>
-            <button class="add-item-btn" onclick="addItem()">+ Add another item</button>
-
-            <!-- VAT & CURRENCY -->
-            <div class="sec-divider"></div>
-            <div class="sec-label">VAT & Currency</div>
-            <div class="inv-form-grid">
-              <div class="inv-field">
-                <label class="inv-label">Country (for VAT rate)</label>
-                <select id="inv-country" onchange="invCountryChange()">
-                  <optgroup label="European Union">
-                    <option value="Austria|20|€">🇦🇹 Austria — 20%</option>
-                    <option value="Belgium|21|€">🇧🇪 Belgium — 21%</option>
-                    <option value="Bulgaria|20|лв">🇧🇬 Bulgaria — 20%</option>
-                    <option value="Croatia|25|€">🇭🇷 Croatia — 25%</option>
-                    <option value="Cyprus|19|€">🇨🇾 Cyprus — 19%</option>
-                    <option value="Czech Republic|21|Kč">🇨🇿 Czech Republic — 21%</option>
-                    <option value="Denmark|25|kr">🇩🇰 Denmark — 25%</option>
-                    <option value="Estonia|22|€">🇪🇪 Estonia — 22%</option>
-                    <option value="Finland|25.5|€">🇫🇮 Finland — 25.5%</option>
-                    <option value="France|20|€">🇫🇷 France — 20%</option>
-                    <option value="Germany|19|€" selected>🇩🇪 Germany — 19%</option>
-                    <option value="Greece|24|€">🇬🇷 Greece — 24%</option>
-                    <option value="Hungary|27|Ft">🇭🇺 Hungary — 27%</option>
-                    <option value="Ireland|23|€">🇮🇪 Ireland — 23%</option>
-                    <option value="Italy|22|€">🇮🇹 Italy — 22%</option>
-                    <option value="Latvia|21|€">🇱🇻 Latvia — 21%</option>
-                    <option value="Lithuania|21|€">🇱🇹 Lithuania — 21%</option>
-                    <option value="Luxembourg|17|€">🇱🇺 Luxembourg — 17%</option>
-                    <option value="Malta|18|€">🇲🇹 Malta — 18%</option>
-                    <option value="Netherlands|21|€">🇳🇱 Netherlands — 21%</option>
-                    <option value="Poland|23|zł">🇵🇱 Poland — 23%</option>
-                    <option value="Portugal|23|€">🇵🇹 Portugal — 23%</option>
-                    <option value="Romania|19|lei">🇷🇴 Romania — 19%</option>
-                    <option value="Slovakia|23|€">🇸🇰 Slovakia — 23%</option>
-                    <option value="Slovenia|22|€">🇸🇮 Slovenia — 22%</option>
-                    <option value="Spain|21|€">🇪🇸 Spain — 21%</option>
-                    <option value="Sweden|25|kr">🇸🇪 Sweden — 25%</option>
-                  </optgroup>
-                  <optgroup label="Other European">
-                    <option value="United Kingdom|20|£">🇬🇧 United Kingdom — 20%</option>
-                    <option value="Switzerland|8.1|CHF">🇨🇭 Switzerland — 8.1%</option>
-                    <option value="Norway|25|kr">🇳🇴 Norway — 25%</option>
-                    <option value="No VAT|0|€">⚪ No VAT (0%)</option>
-                  </optgroup>
-                </select>
-              </div>
-              <div class="inv-field">
-                <label class="inv-label">VAT Rate (editable)</label>
-                <div class="with-pct">
-                  <input type="number" id="vat-rate" value="19" step="0.1" min="0" max="100" oninput="invLiveUpdate()">
-                  <span class="field-pct">%</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- NOTES -->
-            <div class="inv-field" style="margin-bottom:20px;">
-              <label class="inv-label">Payment Notes (optional)</label>
-              <textarea id="inv-notes" placeholder="Bank transfer: IBAN DE89 3704 0044 0532 0130 00&#10;Payment due within 30 days." oninput="invLiveUpdate()"></textarea>
-            </div>
-
-            <button class="gen-btn" onclick="generateInvoice()">Generate Invoice →</button>
-
-            <div class="action-row" id="action-btns" style="display:none;">
-              <button class="act-btn act-print" onclick="printInvoice()">🖨️ Print / Save PDF</button>
-              <button class="act-btn act-copy" onclick="invCopyText()">📋 Copy</button>
-              <button class="act-btn act-reset" onclick="resetInvForm()">↺ Reset</button>
-            </div>
-
+      <div class="form-panel">
+        <div class="panel-head">
+          <div class="panel-icon">📄</div>
+          <div>
+            <div class="panel-title">Invoice Details</div>
+            <div class="panel-sub">Fill in your information to generate a professional invoice</div>
           </div>
         </div>
+        <div class="panel-body">
 
-        <!-- INVOICE AFFILIATE -->
-        <div class="affiliate-section" style="margin-top:20px;">
-          <div class="affiliate-title">Automate your EU invoicing</div>
-          <div class="affiliate-sub">Professional accounting software used by thousands of European freelancers</div>
-          <div class="affiliate-cards">
-            <a class="aff-card" href="#" onclick="return false;">
-              <div class="aff-logo">📚</div>
-              <div class="aff-name">QuickBooks</div>
-              <div class="aff-desc">Auto-generate & send EU invoices with VAT tracking</div>
-              <div class="aff-cta">Try free 30 days →</div>
-            </a>
-            <a class="aff-card" href="#" onclick="return false;">
-              <div class="aff-logo">🔵</div>
-              <div class="aff-name">Xero</div>
-              <div class="aff-desc">Recurring invoices, EU VAT reports & real-time accounting</div>
-              <div class="aff-cta">Start free trial →</div>
-            </a>
-            <a class="aff-card" href="#" onclick="return false;">
-              <div class="aff-logo">📦</div>
-              <div class="aff-name">Sage</div>
-              <div class="aff-desc">EU-focused accounting with built-in VAT automation</div>
-              <div class="aff-cta">Explore Sage →</div>
-            </a>
+          <div class="sec-label">Your Details (From)</div>
+          <div class="inv-form-grid">
+            <div class="inv-field">
+              <label class="inv-label">Your Name / Company</label>
+              <input type="text" id="from-name" placeholder="Acme GmbH" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">Email Address</label>
+              <input type="email" id="from-email" placeholder="you@company.com" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">Address</label>
+              <input type="text" id="from-addr" placeholder="123 Main Street, Berlin" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">VAT Number (optional)</label>
+              <input type="text" id="from-vat" placeholder="DE123456789" oninput="invLiveUpdate()">
+            </div>
           </div>
+
+          <div class="sec-divider"></div>
+
+          <div class="sec-label">Client Details (Bill To)</div>
+          <div class="inv-form-grid">
+            <div class="inv-field">
+              <label class="inv-label">Client Name / Company</label>
+              <input type="text" id="to-name" placeholder="Client Ltd." oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">Client Email</label>
+              <input type="email" id="to-email" placeholder="client@company.com" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field full">
+              <label class="inv-label">Client Address</label>
+              <input type="text" id="to-addr" placeholder="456 Business Ave, Amsterdam" oninput="invLiveUpdate()">
+            </div>
+          </div>
+
+          <div class="sec-divider"></div>
+
+          <div class="sec-label">Invoice Information</div>
+          <div class="inv-form-grid-3">
+            <div class="inv-field">
+              <label class="inv-label">Invoice Number</label>
+              <input type="text" id="inv-num" placeholder="INV-001" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">Issue Date</label>
+              <input type="text" id="inv-date" placeholder="2026-01-01" oninput="invLiveUpdate()">
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">Due Date</label>
+              <input type="text" id="inv-due" placeholder="2026-01-31" oninput="invLiveUpdate()">
+            </div>
+          </div>
+
+          <div class="sec-divider"></div>
+
+          <div class="sec-label">Services / Line Items</div>
+          <div class="items-header">
+            <span>Description</span>
+            <span>Qty</span>
+            <span>Unit Price</span>
+            <span></span>
+          </div>
+          <div id="items-container"></div>
+          <button class="add-item-btn" onclick="addItem()">+ Add another item</button>
+
+          <div class="sec-divider"></div>
+          <div class="sec-label">VAT & Currency</div>
+          <div class="inv-form-grid">
+            <div class="inv-field">
+              <label class="inv-label">Country (for VAT rate)</label>
+              <select id="inv-country" onchange="invCountryChange()">
+                <optgroup label="European Union">
+                  <option value="Austria|20|€">Austria — 20%</option>
+                  <option value="Belgium|21|€">Belgium — 21%</option>
+                  <option value="Bulgaria|20|лв">Bulgaria — 20%</option>
+                  <option value="Croatia|25|€">Croatia — 25%</option>
+                  <option value="Cyprus|19|€">Cyprus — 19%</option>
+                  <option value="Czech Republic|21|Kč">Czech Republic — 21%</option>
+                  <option value="Denmark|25|kr">Denmark — 25%</option>
+                  <option value="Estonia|22|€">Estonia — 22%</option>
+                  <option value="Finland|25.5|€">Finland — 25.5%</option>
+                  <option value="France|20|€">France — 20%</option>
+                  <option value="Germany|19|€" selected>Germany — 19%</option>
+                  <option value="Greece|24|€">Greece — 24%</option>
+                  <option value="Hungary|27|Ft">Hungary — 27%</option>
+                  <option value="Ireland|23|€">Ireland — 23%</option>
+                  <option value="Italy|22|€">Italy — 22%</option>
+                  <option value="Latvia|21|€">Latvia — 21%</option>
+                  <option value="Lithuania|21|€">Lithuania — 21%</option>
+                  <option value="Luxembourg|17|€">Luxembourg — 17%</option>
+                  <option value="Malta|18|€">Malta — 18%</option>
+                  <option value="Netherlands|21|€">Netherlands — 21%</option>
+                  <option value="Poland|23|zł">Poland — 23%</option>
+                  <option value="Portugal|23|€">Portugal — 23%</option>
+                  <option value="Romania|19|lei">Romania — 19%</option>
+                  <option value="Slovakia|23|€">Slovakia — 23%</option>
+                  <option value="Slovenia|22|€">Slovenia — 22%</option>
+                  <option value="Spain|21|€">Spain — 21%</option>
+                  <option value="Sweden|25|kr">Sweden — 25%</option>
+                </optgroup>
+                <optgroup label="Other European">
+                  <option value="United Kingdom|20|£">United Kingdom — 20%</option>
+                  <option value="Switzerland|8.1|CHF">Switzerland — 8.1%</option>
+                  <option value="Norway|25|kr">Norway — 25%</option>
+                  <option value="No VAT|0|€">No VAT (0%)</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="inv-field">
+              <label class="inv-label">VAT Rate (editable)</label>
+              <div class="with-pct">
+                <input type="number" id="vat-rate" value="19" step="0.1" min="0" max="100" oninput="invLiveUpdate()">
+                <span class="field-pct">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="inv-field" style="margin-bottom:20px;">
+            <label class="inv-label">Payment Notes (optional)</label>
+            <textarea id="inv-notes" placeholder="Bank transfer: IBAN DE89 3704 0044 0532 0130 00&#10;Payment due within 30 days." oninput="invLiveUpdate()"></textarea>
+          </div>
+
+          <button class="gen-btn" onclick="generateInvoice()">Generate Invoice →</button>
+
+          <div class="action-row" id="action-btns" style="display:none;">
+            <button class="act-btn act-print" onclick="printInvoice()">Print / Save PDF</button>
+            <button class="act-btn act-copy" onclick="downloadInvoiceTxt()">Download .txt</button>
+            <button class="act-btn act-reset" onclick="resetInvForm()">Reset</button>
+          </div>
+
         </div>
       </div>
 
-      <!-- PREVIEW PANEL -->
       <div class="preview-panel">
         <div class="preview-head">
           <div class="preview-title">Live Preview</div>
@@ -1004,9 +1144,313 @@
         </div>
       </div>
 
-    </div><!-- end inv-layout -->
+    </div>
 
-  </div><!-- end panel-invoice -->
+    <div class="affiliate-section" style="margin-top:20px;">
+      <div class="affiliate-title">Automate your EU invoicing</div>
+      <div class="affiliate-sub">Professional accounting software used by thousands of European freelancers</div>
+      <div class="affiliate-cards">
+        <a class="aff-card" href="#" onclick="return false;">
+          <div class="aff-logo">📚</div>
+          <div class="aff-name">QuickBooks</div>
+          <div class="aff-desc">Auto-generate & send EU invoices with VAT tracking</div>
+          <div class="aff-cta">Try free 30 days →</div>
+        </a>
+        <a class="aff-card" href="#" onclick="return false;">
+          <div class="aff-logo">🔵</div>
+          <div class="aff-name">Xero</div>
+          <div class="aff-desc">Recurring invoices, EU VAT reports & real-time accounting</div>
+          <div class="aff-cta">Start free trial →</div>
+        </a>
+        <a class="aff-card" href="#" onclick="return false;">
+          <div class="aff-logo">📦</div>
+          <div class="aff-name">Sage</div>
+          <div class="aff-desc">EU-focused accounting with built-in VAT automation</div>
+          <div class="aff-cta">Explore Sage →</div>
+        </a>
+      </div>
+    </div>
+  </div><!-- end panel-inv -->
+
+  <!-- ====== GDPR GENERATOR PANEL ====== -->
+  <div class="tool-panel" id="panel-gdpr">
+
+    <div class="gdpr-wrapper">
+      <div class="gdpr-header">
+        <div class="tool-title">
+          <div class="tool-icon">🔒</div>
+          GDPR Privacy Policy Generator
+        </div>
+        <div class="updated-badge">GDPR 2016/679 Compliant</div>
+      </div>
+
+      <div class="tool-body">
+
+        <!-- STEPPER -->
+        <div class="gdpr-stepper" id="gdpr-stepper">
+          <div class="gdpr-step">
+            <div class="gdpr-step-num active" id="gstep-1">1</div>
+            <div class="gdpr-step-label active" id="gstep-lbl-1">Business Info</div>
+          </div>
+          <div class="gdpr-step-line"></div>
+          <div class="gdpr-step">
+            <div class="gdpr-step-num" id="gstep-2">2</div>
+            <div class="gdpr-step-label" id="gstep-lbl-2">Data Collected</div>
+          </div>
+          <div class="gdpr-step-line"></div>
+          <div class="gdpr-step">
+            <div class="gdpr-step-num" id="gstep-3">3</div>
+            <div class="gdpr-step-label" id="gstep-lbl-3">Third Parties</div>
+          </div>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="gdpr-progress" id="gdpr-progress-wrap">
+          <div class="gdpr-progress-bar" id="gdpr-progress-bar" style="width:0%"></div>
+        </div>
+
+        <!-- STEP 1: BUSINESS INFO -->
+        <div class="gdpr-panel active" id="gdpr-panel-1">
+          <div class="sec-label">Organisation Details</div>
+          <div class="gdpr-form-grid">
+            <div class="gdpr-field">
+              <label class="gdpr-label">Company / Website Name *</label>
+              <input class="gdpr-input" id="g-company" placeholder="Acme Ltd." oninput="gdprClearErr('g-company')">
+              <span class="gdpr-error" id="g-company-err">Required</span>
+            </div>
+            <div class="gdpr-field">
+              <label class="gdpr-label">Website URL *</label>
+              <input class="gdpr-input" id="g-url" placeholder="https://example.com" oninput="gdprClearErr('g-url')">
+              <span class="gdpr-error" id="g-url-err">Must start with https://</span>
+            </div>
+            <div class="gdpr-field">
+              <label class="gdpr-label">Country / Jurisdiction *</label>
+              <select class="gdpr-input" id="g-country" onchange="gdprClearErr('g-country')">
+                <option value="">Select country...</option>
+                <optgroup label="European Union">
+                  <option>Austria</option><option>Belgium</option><option>Bulgaria</option>
+                  <option>Croatia</option><option>Cyprus</option><option>Czech Republic</option>
+                  <option>Denmark</option><option>Estonia</option><option>Finland</option>
+                  <option>France</option><option>Germany</option><option>Greece</option>
+                  <option>Hungary</option><option>Ireland</option><option>Italy</option>
+                  <option>Latvia</option><option>Lithuania</option><option>Luxembourg</option>
+                  <option>Malta</option><option>Netherlands</option><option>Poland</option>
+                  <option>Portugal</option><option>Romania</option><option>Slovakia</option>
+                  <option>Slovenia</option><option>Spain</option><option>Sweden</option>
+                </optgroup>
+                <optgroup label="Other">
+                  <option>United Kingdom</option><option>Switzerland</option>
+                  <option>Norway</option><option>United States</option><option>Canada</option>
+                </optgroup>
+              </select>
+              <span class="gdpr-error" id="g-country-err">Required</span>
+            </div>
+            <div class="gdpr-field">
+              <label class="gdpr-label">Privacy Contact Email *</label>
+              <input class="gdpr-input" type="email" id="g-email" placeholder="privacy@example.com" oninput="gdprClearErr('g-email')">
+              <span class="gdpr-error" id="g-email-err">Valid email required</span>
+            </div>
+          </div>
+          <div class="gdpr-field">
+            <label class="gdpr-label">Data Protection Officer (optional)</label>
+            <input class="gdpr-input" id="g-dpo" placeholder="Name of your DPO">
+          </div>
+        </div>
+
+        <!-- STEP 2: DATA COLLECTED -->
+        <div class="gdpr-panel" id="gdpr-panel-2">
+          <div class="sec-label">Personal Data You Collect</div>
+          <div class="gdpr-check-grid" id="gdpr-data-grid">
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Names & Contact Details</div><div class="gdpr-check-desc">Full name, address, phone number</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Email Addresses</div><div class="gdpr-check-desc">Used for communication and marketing</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Payment & Billing Info</div><div class="gdpr-check-desc">Card numbers, bank details, invoices</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Cookies & Usage Data</div><div class="gdpr-check-desc">Session data, preferences, click behaviour</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">IP Addresses & Location</div><div class="gdpr-check-desc">Approximate geolocation from IP</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Device & Browser Data</div><div class="gdpr-check-desc">User agent, screen size, OS</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Health or Sensitive Data</div><div class="gdpr-check-desc">Medical info, biometrics (Article 9 GDPR)</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'data')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Children's Data</div><div class="gdpr-check-desc">Users under 16 — requires parental consent</div></div>
+            </div>
+          </div>
+          <span class="gdpr-error" id="gdpr-data-err">Please select at least one data type</span>
+
+          <div class="sec-divider" style="margin-top:20px;"></div>
+          <div class="sec-label">Lawful Basis for Processing (Article 6 GDPR)</div>
+          <div class="gdpr-check-grid" id="gdpr-basis-grid">
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'basis')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Consent</div><div class="gdpr-check-desc">User has given explicit consent</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'basis')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Contractual Necessity</div><div class="gdpr-check-desc">Required to fulfil a contract</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'basis')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Legal Obligation</div><div class="gdpr-check-desc">Required by law or regulation</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'basis')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Legitimate Interests</div><div class="gdpr-check-desc">Necessary for business purposes</div></div>
+            </div>
+          </div>
+          <span class="gdpr-error" id="gdpr-basis-err">Please select at least one legal basis</span>
+        </div>
+
+        <!-- STEP 3: THIRD PARTIES & RETENTION -->
+        <div class="gdpr-panel" id="gdpr-panel-3">
+          <div class="sec-label">Third-Party Services</div>
+          <div class="gdpr-check-grid" id="gdpr-tp-grid">
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Google Analytics</div><div class="gdpr-check-desc">Website traffic analytics (Google LLC)</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Facebook Pixel</div><div class="gdpr-check-desc">Ad tracking and retargeting (Meta)</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Stripe</div><div class="gdpr-check-desc">Payment processing (Stripe Inc.)</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Mailchimp</div><div class="gdpr-check-desc">Email marketing automation (Intuit)</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Amazon Web Services</div><div class="gdpr-check-desc">Cloud hosting and infrastructure</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Hotjar</div><div class="gdpr-check-desc">Heatmaps and session recordings</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">HubSpot</div><div class="gdpr-check-desc">CRM and marketing automation</div></div>
+            </div>
+            <div class="gdpr-check-card" onclick="gdprToggle(this,'tp')">
+              <div class="gdpr-checkbox"></div>
+              <div><div class="gdpr-check-label">Intercom</div><div class="gdpr-check-desc">Customer support and live chat</div></div>
+            </div>
+          </div>
+
+          <div class="sec-divider"></div>
+          <div class="sec-label">Retention & Options</div>
+
+          <div class="gdpr-field" style="margin-bottom:16px;">
+            <label class="gdpr-label">Data Retention Period</label>
+            <select class="gdpr-input" id="g-retention">
+              <option>3 months</option>
+              <option>6 months</option>
+              <option selected>1 year</option>
+              <option>2 years</option>
+              <option>3 years</option>
+              <option>5 years</option>
+              <option>7 years (tax/legal requirement)</option>
+              <option>Until account deletion requested</option>
+              <option>As long as necessary to provide services</option>
+            </select>
+          </div>
+
+          <div class="gdpr-toggle-row">
+            <div class="gdpr-toggle-info">
+              <div class="gdpr-check-label">Cookie Banner / Consent Mechanism</div>
+              <div class="gdpr-check-desc">You use cookies and have a user consent system</div>
+            </div>
+            <button class="gdpr-switch" id="sw-cookies" onclick="gdprSwitch(this)"><div class="gdpr-switch-knob"></div></button>
+          </div>
+
+          <div class="gdpr-toggle-row">
+            <div class="gdpr-toggle-info">
+              <div class="gdpr-check-label">Data Transferred Outside EU/EEA</div>
+              <div class="gdpr-check-desc">e.g. to US-based servers or third-party services</div>
+            </div>
+            <button class="gdpr-switch" id="sw-transfer" onclick="gdprSwitch(this)"><div class="gdpr-switch-knob"></div></button>
+          </div>
+
+          <div id="g-transfer-country-wrap" style="display:none; margin-top:12px;">
+            <div class="gdpr-field">
+              <label class="gdpr-label">Transfer Destination Country</label>
+              <input class="gdpr-input" id="g-transfer-country" placeholder="e.g. United States, India">
+            </div>
+          </div>
+        </div>
+
+        <!-- OUTPUT (step 4) -->
+        <div class="gdpr-output" id="gdpr-output">
+          <div class="gdpr-output-head">
+            <div class="gdpr-output-title">
+              <div class="ok-dot">✓</div>
+              Policy generated successfully
+            </div>
+            <div class="gdpr-output-actions">
+              <button class="gdpr-act-btn gdpr-act-copy" onclick="gdprCopy()">Copy Policy</button>
+              <button class="gdpr-act-btn gdpr-act-dl" onclick="gdprDownload()">Download .txt</button>
+              <button class="gdpr-act-btn gdpr-act-restart" style="border:1px solid var(--border2);" onclick="gdprRestart()">Start Over</button>
+            </div>
+          </div>
+          <textarea class="gdpr-textarea" id="gdpr-textarea" readonly></textarea>
+          <div class="gdpr-badges">
+            <span class="gdpr-badge gdpr-badge-green">GDPR Article 13 compliant</span>
+            <span class="gdpr-badge gdpr-badge-blue">Data minimisation principle applied</span>
+            <span class="gdpr-badge gdpr-badge-muted">Not legal advice — consult a solicitor for complex cases</span>
+          </div>
+        </div>
+
+      </div><!-- end tool-body -->
+
+      <!-- GDPR NAV FOOTER -->
+      <div class="gdpr-nav" id="gdpr-nav">
+        <div id="gdpr-back-wrap">
+          <button class="gdpr-back-btn" onclick="gdprBack()" style="display:none;" id="gdpr-back-btn">← Back</button>
+        </div>
+        <button class="gdpr-next-btn" id="gdpr-next-btn" onclick="gdprNext()">Next Step →</button>
+      </div>
+
+    </div><!-- end gdpr-wrapper -->
+
+    <div class="gdpr-feature-cards">
+      <div class="gdpr-feature-card">
+        <div class="gdpr-feature-icon">⚡</div>
+        <div class="gdpr-feature-title">Instant Generation</div>
+        <div class="gdpr-feature-desc">Your full policy in under 60 seconds</div>
+      </div>
+      <div class="gdpr-feature-card">
+        <div class="gdpr-feature-icon">⚖️</div>
+        <div class="gdpr-feature-title">Legally Structured</div>
+        <div class="gdpr-feature-desc">Follows GDPR Chapter III requirements</div>
+      </div>
+      <div class="gdpr-feature-card">
+        <div class="gdpr-feature-icon">♾️</div>
+        <div class="gdpr-feature-title">Always Free</div>
+        <div class="gdpr-feature-desc">No sign-up, watermark, or hidden fees</div>
+      </div>
+    </div>
+
+  </div><!-- end panel-gdpr -->
 
 </main>
 
@@ -1015,12 +1459,12 @@
   <div class="footer-links">
     <a onclick="switchTool('vat')">VAT Calculator</a>
     <a onclick="switchTool('invoice')">Invoice Generator</a>
-    <a href="#">GDPR Generator</a>
+    <a onclick="switchTool('gdpr')">GDPR Generator</a>
     <a href="#">Privacy Policy</a>
     <a href="#">Contact</a>
   </div>
   <p>© 2026 EUToolbox.com — Free EU Business Tools · VAT rates updated January 2026</p>
-  <p style="margin-top:6px;font-size:11px;color:var(--text3);">For informational purposes only. Always verify with your local tax authority.</p>
+  <p style="margin-top:6px;font-size:11px;color:var(--text3);">For informational purposes only. Always verify with your local tax authority or legal adviser.</p>
 </footer>
 
 <script>
@@ -1028,23 +1472,23 @@
 // TOOL SWITCHER
 // ============================================================
 function switchTool(tool) {
-  // Normalize: 'invoice' -> 'inv' for element IDs
   const key = tool === 'invoice' ? 'inv' : tool;
-  const keys = ['vat', 'inv'];
-  keys.forEach(k => {
-    const panel = document.getElementById('panel-' + k);
-    const tab   = document.getElementById('tab-'   + k);
-    const nav   = document.getElementById('nav-'   + k);
+  const keys = ['vat', 'inv', 'gdpr'];
+  keys.forEach(function(k) {
+    var panel = document.getElementById('panel-' + k);
+    var tab   = document.getElementById('tab-' + k);
+    var nav   = document.getElementById('nav-' + k);
     if (panel) panel.classList.toggle('active', k === key);
     if (tab)   tab.classList.toggle('active',   k === key);
     if (nav)   nav.classList.toggle('active',   k === key);
   });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ============================================================
 // VAT CALCULATOR
 // ============================================================
-const vatCountries = [
+var vatCountries = [
   { code:'AT', name:'Austria', flag:'🇦🇹', rate:20, currency:'€' },
   { code:'BE', name:'Belgium', flag:'🇧🇪', rate:21, currency:'€' },
   { code:'BG', name:'Bulgaria', flag:'🇧🇬', rate:20, currency:'лв' },
@@ -1077,37 +1521,29 @@ const vatCountries = [
   { code:'NO', name:'Norway', flag:'🇳🇴', rate:25, currency:'kr' },
 ];
 
-let vatMode = 'add';
-let vatCurrency = '€';
-let selectedCountry = null;
+var vatMode = 'add';
+var vatCurrency = '€';
+var selectedCountry = null;
 
-function renderRates(filter = '') {
-  const grid = document.getElementById('rates-grid');
-  const filtered = vatCountries.filter(c =>
-    c.name.toLowerCase().includes(filter.toLowerCase()) ||
-    c.code.toLowerCase().includes(filter.toLowerCase())
-  );
-  grid.innerHTML = filtered.map(c => `
-    <div class="rate-card ${selectedCountry === c.code ? 'selected' : ''}"
-         onclick="selectCountry('${c.code}|${c.rate}|${c.currency}|${c.name}', '${c.code}')">
-      <div class="country-info">
-        <span class="country-flag">${c.flag}</span>
-        <div>
-          <div class="country-name">${c.name}</div>
-          <div class="country-code">${c.code}</div>
-        </div>
-      </div>
-      <div class="vat-rate">${c.rate}%</div>
-    </div>
-  `).join('');
+function renderRates(filter) {
+  filter = filter || '';
+  var grid = document.getElementById('rates-grid');
+  var filtered = vatCountries.filter(function(c) {
+    return c.name.toLowerCase().includes(filter.toLowerCase()) || c.code.toLowerCase().includes(filter.toLowerCase());
+  });
+  grid.innerHTML = filtered.map(function(c) {
+    return '<div class="rate-card ' + (selectedCountry === c.code ? 'selected' : '') + '" onclick="selectCountry(\'' + c.code + '|' + c.rate + '|' + c.currency + '|' + c.name + '\',\'' + c.code + '\')">' +
+      '<div class="country-info"><span class="country-flag">' + c.flag + '</span><div><div class="country-name">' + c.name + '</div><div class="country-code">' + c.code + '</div></div></div>' +
+      '<div class="vat-rate">' + c.rate + '%</div></div>';
+  }).join('');
 }
 
 function filterCountries(val) { renderRates(val); }
 
 function selectCountry(val, code) {
   selectedCountry = code;
-  const sel = document.getElementById('vat-country');
-  for (let i = 0; i < sel.options.length; i++) {
+  var sel = document.getElementById('vat-country');
+  for (var i = 0; i < sel.options.length; i++) {
     if (sel.options[i].value === val) { sel.value = val; break; }
   }
   updateVatRate();
@@ -1116,10 +1552,10 @@ function selectCountry(val, code) {
 }
 
 function updateVatRate() {
-  const sel = document.getElementById('vat-country');
-  const val = sel.value;
+  var sel = document.getElementById('vat-country');
+  var val = sel.value;
   if (!val) return;
-  const parts = val.split('|');
+  var parts = val.split('|');
   document.getElementById('vatRate').value = parts[1];
   vatCurrency = parts[2];
   document.getElementById('currency-sym').textContent = vatCurrency;
@@ -1130,10 +1566,10 @@ function updateVatRate() {
 
 function setMode(mode) {
   vatMode = mode;
-  ['add','remove','check'].forEach(m => {
+  ['add','remove','check'].forEach(function(m) {
     document.getElementById('btn-'+m).classList.toggle('active', m === mode);
   });
-  const labels = { add: 'Price excluding VAT', remove: 'Price including VAT', check: 'Price (any amount)' };
+  var labels = { add: 'Price excluding VAT', remove: 'Price including VAT', check: 'Price (any amount)' };
   document.getElementById('price-label').textContent = labels[mode];
   clearResults();
 }
@@ -1143,15 +1579,15 @@ function fmtVat(num, currency) {
 }
 
 function calculate() {
-  const rate = parseFloat(document.getElementById('vatRate').value);
-  const price = parseFloat(document.getElementById('price').value);
-  const sel = document.getElementById('vat-country');
-  const parts = sel.value ? sel.value.split('|') : null;
-  const countryName = parts ? parts[3] : 'Unknown';
+  var rate = parseFloat(document.getElementById('vatRate').value);
+  var price = parseFloat(document.getElementById('price').value);
+  var sel = document.getElementById('vat-country');
+  var parts = sel.value ? sel.value.split('|') : null;
+  var countryName = parts ? parts[3] : 'Unknown';
   if (isNaN(rate) || isNaN(price) || price < 0) {
-    showToast('⚠️ Please select a country and enter a valid price.'); return;
+    showToast('Please select a country and enter a valid price.'); return;
   }
-  let excl, vat, incl;
+  var excl, vat, incl;
   if (vatMode === 'add') { excl = price; vat = price * (rate/100); incl = price + vat; }
   else if (vatMode === 'remove') { incl = price; excl = price / (1 + rate/100); vat = incl - excl; }
   else { excl = price; vat = price * (rate/100); incl = price + vat; }
@@ -1159,7 +1595,7 @@ function calculate() {
   document.getElementById('res-vat').textContent = fmtVat(vat, vatCurrency);
   document.getElementById('res-incl').textContent = fmtVat(incl, vatCurrency);
   document.getElementById('res-vat-pct').textContent = rate + '% VAT rate';
-  document.getElementById('info-country').textContent = '📍 ' + countryName;
+  document.getElementById('info-country').textContent = countryName;
   document.getElementById('info-rate').textContent = rate + '% VAT';
   document.getElementById('results').classList.add('show');
 }
@@ -1178,60 +1614,66 @@ function resetVatForm() {
 }
 
 function copyVatResults() {
-  const excl = document.getElementById('res-excl').textContent;
-  const vat = document.getElementById('res-vat').textContent;
-  const incl = document.getElementById('res-incl').textContent;
-  const country = document.getElementById('info-country').textContent;
-  const rate = document.getElementById('info-rate').textContent;
-  const text = `EU VAT Calculation — EUToolbox.com\n${country} | ${rate}\n\nPrice excl. VAT: ${excl}\nVAT Amount: ${vat}\nPrice incl. VAT: ${incl}`;
-  navigator.clipboard.writeText(text).then(() => showToast('✓ Copied to clipboard!'));
+  var excl = document.getElementById('res-excl').textContent;
+  var vat  = document.getElementById('res-vat').textContent;
+  var incl = document.getElementById('res-incl').textContent;
+  var country = document.getElementById('info-country').textContent;
+  var rate = document.getElementById('info-rate').textContent;
+  var text = 'EU VAT Calculation — EUToolbox.com\n' + country + ' | ' + rate + '\n\nPrice excl. VAT: ' + excl + '\nVAT Amount: ' + vat + '\nPrice incl. VAT: ' + incl;
+  navigator.clipboard.writeText(text).then(function() { showToast('Copied to clipboard!'); });
+}
+
+function downloadVatResults() {
+  var excl = document.getElementById('res-excl').textContent;
+  var vat  = document.getElementById('res-vat').textContent;
+  var incl = document.getElementById('res-incl').textContent;
+  var country = document.getElementById('info-country').textContent;
+  var rate = document.getElementById('info-rate').textContent;
+  var text = 'EU VAT Calculation — EUToolbox.com\nDate: ' + new Date().toLocaleDateString() + '\n\nCountry: ' + country + '\nVAT Rate: ' + rate + '\n\nPrice excl. VAT : ' + excl + '\nVAT Amount      : ' + vat + '\nPrice incl. VAT : ' + incl + '\n\nFor informational purposes only.';
+  downloadTxt(text, 'vat-calculation.txt');
 }
 
 // ============================================================
 // INVOICE GENERATOR
 // ============================================================
-let invSym = '€';
-let invVat = 19;
-let invCountry = 'Germany';
-let itemCount = 0;
-let invoiceGenerated = false;
+var invSym = '€';
+var invVat = 19;
+var invCountry = 'Germany';
+var itemCount = 0;
+var invoiceGenerated = false;
 
 function invInit() {
-  const today = new Date();
+  var today = new Date();
   document.getElementById('inv-date').value = today.toISOString().split('T')[0];
-  const due = new Date(); due.setDate(due.getDate() + 30);
+  var due = new Date(); due.setDate(due.getDate() + 30);
   document.getElementById('inv-due').value = due.toISOString().split('T')[0];
   document.getElementById('inv-num').value = 'INV-' + Math.floor(Math.random()*900+100);
   addItem(); addItem();
 }
 
 function invCountryChange() {
-  const v = document.getElementById('inv-country').value.split('|');
+  var v = document.getElementById('inv-country').value.split('|');
   invCountry = v[0]; invVat = parseFloat(v[1]); invSym = v[2];
   document.getElementById('vat-rate').value = invVat;
-  document.querySelectorAll('.price-sym').forEach(s => s.textContent = invSym);
+  document.querySelectorAll('.price-sym').forEach(function(s) { s.textContent = invSym; });
   invLiveUpdate();
 }
 
 function addItem() {
   itemCount++;
-  const id = 'item-' + itemCount;
-  const row = document.createElement('div');
+  var id = 'item-' + itemCount;
+  var row = document.createElement('div');
   row.className = 'item-row'; row.id = id;
-  row.innerHTML = `
-    <input type="text" placeholder="Service or product description" oninput="invLiveUpdate()">
-    <input type="number" class="num-inp" placeholder="1" value="1" min="1" step="1" oninput="invLiveUpdate()">
-    <div class="with-sym" style="position:relative;">
-      <span class="field-sym price-sym">${invSym}</span>
-      <input type="number" class="num-inp" placeholder="0.00" min="0" step="0.01" oninput="invLiveUpdate()" style="padding-left:28px;font-family:var(--mono);">
-    </div>
-    <button class="del-btn" onclick="delItem('${id}')" title="Remove">✕</button>
-  `;
+  row.innerHTML = '<input type="text" placeholder="Service or product description" oninput="invLiveUpdate()">' +
+    '<input type="number" class="num-inp" placeholder="1" value="1" min="1" step="1" oninput="invLiveUpdate()">' +
+    '<div class="with-sym" style="position:relative;"><span class="field-sym price-sym">' + invSym + '</span>' +
+    '<input type="number" class="num-inp" placeholder="0.00" min="0" step="0.01" oninput="invLiveUpdate()" style="padding-left:28px;font-family:var(--mono);"></div>' +
+    '<button class="del-btn" onclick="delItem(\'' + id + '\')" title="Remove">×</button>';
   document.getElementById('items-container').appendChild(row);
 }
 
 function delItem(id) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   if (document.querySelectorAll('.item-row').length > 1) { el.remove(); invLiveUpdate(); }
 }
 
@@ -1240,109 +1682,75 @@ function invFmt(n) {
 }
 
 function calcTotals() {
-  const rows = document.querySelectorAll('.item-row');
-  let subtotal = 0;
-  const items = [];
-  rows.forEach(r => {
-    const inputs = r.querySelectorAll('input');
-    const desc = inputs[0].value || '';
-    const qty = parseFloat(inputs[1].value) || 0;
-    const price = parseFloat(inputs[2].value) || 0;
-    const total = qty * price;
+  var rows = document.querySelectorAll('.item-row');
+  var subtotal = 0;
+  var items = [];
+  rows.forEach(function(r) {
+    var inputs = r.querySelectorAll('input');
+    var desc = inputs[0].value || '';
+    var qty = parseFloat(inputs[1].value) || 0;
+    var price = parseFloat(inputs[2].value) || 0;
+    var total = qty * price;
     subtotal += total;
-    if (desc || qty || price) items.push({ desc, qty, price, total });
+    if (desc || qty || price) items.push({ desc: desc, qty: qty, price: price, total: total });
   });
-  const vatRate = parseFloat(document.getElementById('vat-rate').value) || 0;
-  const vatAmt = subtotal * (vatRate / 100);
-  const total = subtotal + vatAmt;
-  return { items, subtotal, vatRate, vatAmt, total };
+  var vatRate = parseFloat(document.getElementById('vat-rate').value) || 0;
+  var vatAmt = subtotal * (vatRate / 100);
+  var total = subtotal + vatAmt;
+  return { items: items, subtotal: subtotal, vatRate: vatRate, vatAmt: vatAmt, total: total };
 }
 
 function invLiveUpdate() {
   invVat = parseFloat(document.getElementById('vat-rate').value) || 0;
-  const fromName = document.getElementById('from-name').value;
-  const hasData = fromName || document.getElementById('to-name').value;
+  var fromName = document.getElementById('from-name').value;
+  var hasData = fromName || document.getElementById('to-name').value;
   if (!hasData) {
-    document.getElementById('invoice-preview').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📄</div>
-        <div class="empty-text">Fill in the form on the left<br>to see your invoice preview here.</div>
-      </div>`;
+    document.getElementById('invoice-preview').innerHTML = '<div class="empty-state"><div class="empty-icon">📄</div><div class="empty-text">Fill in the form on the left<br>to see your invoice preview here.</div></div>';
     document.getElementById('preview-status').className = 'preview-status empty';
     document.getElementById('preview-status').textContent = 'Waiting for input';
     return;
   }
   renderInvPreview();
   document.getElementById('preview-status').className = 'preview-status ready';
-  document.getElementById('preview-status').textContent = '✓ Live preview';
+  document.getElementById('preview-status').textContent = 'Live preview';
 }
 
 function renderInvPreview() {
-  const fromName = document.getElementById('from-name').value || 'Your Company';
-  const fromEmail = document.getElementById('from-email').value;
-  const fromAddr = document.getElementById('from-addr').value;
-  const fromVat = document.getElementById('from-vat').value;
-  const toName = document.getElementById('to-name').value || 'Client Name';
-  const toEmail = document.getElementById('to-email').value;
-  const toAddr = document.getElementById('to-addr').value;
-  const invNum = document.getElementById('inv-num').value || 'INV-001';
-  const invDate = document.getElementById('inv-date').value;
-  const invDue = document.getElementById('inv-due').value;
-  const notes = document.getElementById('inv-notes').value;
-  const { items, subtotal, vatRate, vatAmt, total } = calcTotals();
+  var fromName  = document.getElementById('from-name').value || 'Your Company';
+  var fromEmail = document.getElementById('from-email').value;
+  var fromAddr  = document.getElementById('from-addr').value;
+  var fromVat   = document.getElementById('from-vat').value;
+  var toName    = document.getElementById('to-name').value || 'Client Name';
+  var toEmail   = document.getElementById('to-email').value;
+  var toAddr    = document.getElementById('to-addr').value;
+  var invNum    = document.getElementById('inv-num').value || 'INV-001';
+  var invDate   = document.getElementById('inv-date').value;
+  var invDue    = document.getElementById('inv-due').value;
+  var notes     = document.getElementById('inv-notes').value;
+  var t = calcTotals();
 
-  const rows = items.map(i =>
-    `<tr><td>${i.desc||'—'}</td><td class="tr">${i.qty}</td><td class="tr">${invSym}${i.price.toFixed(2)}</td><td class="tr">${invSym}${i.total.toFixed(2)}</td></tr>`
-  ).join('');
+  var rows = t.items.map(function(i) {
+    return '<tr><td>' + (i.desc||'—') + '</td><td class="tr">' + i.qty + '</td><td class="tr">' + invSym + i.price.toFixed(2) + '</td><td class="tr">' + invSym + i.total.toFixed(2) + '</td></tr>';
+  }).join('');
+  var notesHtml = notes ? '<div class="inv-note">' + notes.replace(/\n/g,'<br>') + '</div>' : '';
 
-  const notesHtml = notes ? `<div class="inv-note">${notes.replace(/\n/g,'<br>')}</div>` : '';
-
-  document.getElementById('invoice-preview').innerHTML = `
-    <div class="inv-top">
-      <div>
-        <div class="inv-brand">${fromName}</div>
-        <div class="inv-brand-sub">
-          ${fromEmail ? fromEmail + '<br>' : ''}
-          ${fromAddr ? fromAddr + '<br>' : ''}
-          ${fromVat ? '<span style="font-family:var(--mono);font-size:10px;color:var(--text3);">VAT: ' + fromVat + '</span>' : ''}
-        </div>
-      </div>
-      <div class="inv-meta-right">
-        <div class="inv-title-word">Invoice</div>
-        <div class="inv-number">${invNum}</div>
-        <div class="inv-dates">
-          ${invDate ? 'Issued: ' + invDate + '<br>' : ''}
-          ${invDue ? 'Due: ' + invDue : ''}
-        </div>
-      </div>
-    </div>
-    <div class="inv-parties">
-      <div>
-        <div class="inv-party-head">From</div>
-        <div class="inv-party-name">${fromName}</div>
-        <div class="inv-party-info">${fromAddr || ''}</div>
-        <div class="inv-party-info">${fromEmail || ''}</div>
-        ${fromVat ? '<div class="inv-party-vat">VAT: ' + fromVat + '</div>' : ''}
-      </div>
-      <div>
-        <div class="inv-party-head">Bill To</div>
-        <div class="inv-party-name">${toName}</div>
-        <div class="inv-party-info">${toAddr || ''}</div>
-        <div class="inv-party-info">${toEmail || ''}</div>
-      </div>
-    </div>
-    <table class="inv-table">
-      <thead><tr><th>Description</th><th class="tr">Qty</th><th class="tr">Unit Price</th><th class="tr">Total</th></tr></thead>
-      <tbody>${rows || '<tr><td colspan="4" style="color:var(--text3);text-align:center;">Add items above</td></tr>'}</tbody>
-    </table>
-    <div class="inv-totals">
-      <div class="tot-row"><span class="lbl">Subtotal</span><span class="amt">${invFmt(subtotal)}</span></div>
-      <div class="tot-row"><span class="lbl">VAT (${vatRate}%)</span><span class="amt">${invFmt(vatAmt)}</span></div>
-      <div class="tot-final"><span>Total Due</span><span class="amt">${invFmt(total)}</span></div>
-    </div>
-    ${notesHtml}
-    <div class="inv-footer-line">Generated by EUToolbox.com — Free EU Invoice Generator</div>
-  `;
+  document.getElementById('invoice-preview').innerHTML =
+    '<div class="inv-top"><div><div class="inv-brand">' + fromName + '</div><div class="inv-brand-sub">' +
+    (fromEmail ? fromEmail + '<br>' : '') + (fromAddr ? fromAddr + '<br>' : '') +
+    (fromVat ? '<span style="font-family:var(--mono);font-size:10px;color:var(--text3);">VAT: ' + fromVat + '</span>' : '') + '</div></div>' +
+    '<div class="inv-meta-right"><div class="inv-title-word">Invoice</div><div class="inv-number">' + invNum + '</div>' +
+    '<div class="inv-dates">' + (invDate ? 'Issued: ' + invDate + '<br>' : '') + (invDue ? 'Due: ' + invDue : '') + '</div></div></div>' +
+    '<div class="inv-parties"><div><div class="inv-party-head">From</div><div class="inv-party-name">' + fromName + '</div>' +
+    '<div class="inv-party-info">' + (fromAddr||'') + '</div><div class="inv-party-info">' + (fromEmail||'') + '</div>' +
+    (fromVat ? '<div class="inv-party-vat">VAT: ' + fromVat + '</div>' : '') + '</div>' +
+    '<div><div class="inv-party-head">Bill To</div><div class="inv-party-name">' + toName + '</div>' +
+    '<div class="inv-party-info">' + (toAddr||'') + '</div><div class="inv-party-info">' + (toEmail||'') + '</div></div></div>' +
+    '<table class="inv-table"><thead><tr><th>Description</th><th class="tr">Qty</th><th class="tr">Unit Price</th><th class="tr">Total</th></tr></thead>' +
+    '<tbody>' + (rows || '<tr><td colspan="4" style="color:var(--text3);text-align:center;">Add items above</td></tr>') + '</tbody></table>' +
+    '<div class="inv-totals"><div class="tot-row"><span class="lbl">Subtotal</span><span class="amt">' + invFmt(t.subtotal) + '</span></div>' +
+    '<div class="tot-row"><span class="lbl">VAT (' + t.vatRate + '%)</span><span class="amt">' + invFmt(t.vatAmt) + '</span></div>' +
+    '<div class="tot-final"><span>Total Due</span><span class="amt">' + invFmt(t.total) + '</span></div></div>' +
+    notesHtml + '<div class="inv-footer-line">Generated by EUToolbox.com — Free EU Invoice Generator</div>';
 }
 
 function generateInvoice() {
@@ -1350,56 +1758,65 @@ function generateInvoice() {
   invoiceGenerated = true;
   document.getElementById('action-btns').style.display = 'flex';
   document.getElementById('preview-status').className = 'preview-status ready';
-  document.getElementById('preview-status').textContent = '✓ Ready to print';
+  document.getElementById('preview-status').textContent = 'Ready to print';
   document.getElementById('invoice-preview').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  showToast('✓ Invoice generated! Click Print / Save PDF');
+  showToast('Invoice generated! Click Print / Save PDF');
 }
 
 function printInvoice() {
-  const content = document.getElementById('invoice-preview').innerHTML;
-  const w = window.open('', '_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>${document.getElementById('inv-num').value || 'Invoice'}</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Sora',sans-serif;padding:48px;color:#1c1710;max-width:820px;margin:0 auto;background:white;}
-    .inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid #4f6ef7;}
-    .inv-brand{font-family:'DM Serif Display',serif;font-size:22px;}
-    .inv-brand-sub{font-size:11px;color:#888;margin-top:4px;line-height:1.5;}
-    .inv-meta-right{text-align:right;}
-    .inv-title-word{font-family:'DM Serif Display',serif;font-size:28px;color:#4f6ef7;}
-    .inv-number{font-family:'JetBrains Mono',monospace;font-size:13px;color:#5a5040;margin-top:3px;}
-    .inv-dates{font-size:11px;color:#888;margin-top:5px;line-height:1.6;}
-    .inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:22px;}
-    .inv-party-head{font-size:10px;font-weight:600;color:#06b6d4;text-transform:uppercase;letter-spacing:0.09em;margin-bottom:5px;}
-    .inv-party-name{font-weight:600;font-size:14px;margin-bottom:2px;}
-    .inv-party-info{font-size:12px;color:#5a5040;line-height:1.45;}
-    .inv-party-vat{font-size:11px;color:#a09070;font-family:'JetBrains Mono',monospace;}
-    .inv-table{width:100%;border-collapse:collapse;margin-bottom:18px;}
-    .inv-table thead tr{border-bottom:1px solid #4f6ef7;}
-    .inv-table th{padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#5a5040;font-weight:600;}
-    .inv-table td{padding:9px 10px;font-size:12px;border-bottom:1px solid #e5e7eb;}
-    .tr{text-align:right;font-family:'JetBrains Mono',monospace;}
-    .inv-totals{display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding-top:14px;border-top:1px solid #e5e7eb;margin-bottom:18px;}
-    .tot-row{display:flex;gap:48px;font-size:12px;}
-    .tot-row .lbl{color:#5a5040;}
-    .tot-row .amt{font-family:'JetBrains Mono',monospace;color:#1c1710;min-width:90px;text-align:right;}
-    .tot-final{display:flex;gap:48px;font-size:15px;font-weight:600;padding-top:7px;margin-top:3px;border-top:2px solid #4f6ef7;color:#4f6ef7;}
-    .tot-final .amt{font-family:'JetBrains Mono',monospace;min-width:90px;text-align:right;}
-    .inv-note{font-size:11px;color:#888;padding-top:14px;border-top:1px solid #e5e7eb;line-height:1.6;}
-    .inv-footer-line{margin-top:22px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:center;font-size:10px;color:#ccc;font-family:'JetBrains Mono',monospace;}
-    .empty-state{display:none;}
-    @media print{body{padding:20px;}@page{margin:1cm;}}
-  </style>
-  </head><body>${content}</body></html>`);
+  var content = document.getElementById('invoice-preview').innerHTML;
+  var w = window.open('', '_blank');
+  w.document.write('<!DOCTYPE html><html><head><title>' + (document.getElementById('inv-num').value || 'Invoice') + '</title>' +
+    '<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">' +
+    '<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:\'Sora\',sans-serif;padding:48px;color:#1c1710;max-width:820px;margin:0 auto;background:white;}' +
+    '.inv-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid #4f6ef7;}' +
+    '.inv-brand{font-family:\'DM Serif Display\',serif;font-size:22px;}.inv-brand-sub{font-size:11px;color:#888;margin-top:4px;line-height:1.5;}' +
+    '.inv-meta-right{text-align:right;}.inv-title-word{font-family:\'DM Serif Display\',serif;font-size:28px;color:#4f6ef7;}' +
+    '.inv-number{font-family:\'JetBrains Mono\',monospace;font-size:13px;color:#5a5040;margin-top:3px;}' +
+    '.inv-dates{font-size:11px;color:#888;margin-top:5px;line-height:1.6;}' +
+    '.inv-parties{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:22px;}' +
+    '.inv-party-head{font-size:10px;font-weight:600;color:#06b6d4;text-transform:uppercase;letter-spacing:0.09em;margin-bottom:5px;}' +
+    '.inv-party-name{font-weight:600;font-size:14px;margin-bottom:2px;}.inv-party-info{font-size:12px;color:#5a5040;line-height:1.45;}' +
+    '.inv-party-vat{font-size:11px;color:#a09070;font-family:\'JetBrains Mono\',monospace;}' +
+    '.inv-table{width:100%;border-collapse:collapse;margin-bottom:18px;}.inv-table thead tr{border-bottom:1px solid #4f6ef7;}' +
+    '.inv-table th{padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.07em;color:#5a5040;font-weight:600;}' +
+    '.inv-table td{padding:9px 10px;font-size:12px;border-bottom:1px solid #e5e7eb;}' +
+    '.tr{text-align:right;font-family:\'JetBrains Mono\',monospace;}' +
+    '.inv-totals{display:flex;flex-direction:column;align-items:flex-end;gap:4px;padding-top:14px;border-top:1px solid #e5e7eb;margin-bottom:18px;}' +
+    '.tot-row{display:flex;gap:48px;font-size:12px;}.tot-row .lbl{color:#5a5040;}.tot-row .amt{font-family:\'JetBrains Mono\',monospace;color:#1c1710;min-width:90px;text-align:right;}' +
+    '.tot-final{display:flex;gap:48px;font-size:15px;font-weight:600;padding-top:7px;margin-top:3px;border-top:2px solid #4f6ef7;color:#4f6ef7;}' +
+    '.tot-final .amt{font-family:\'JetBrains Mono\',monospace;min-width:90px;text-align:right;}' +
+    '.inv-note{font-size:11px;color:#888;padding-top:14px;border-top:1px solid #e5e7eb;line-height:1.6;}' +
+    '.inv-footer-line{margin-top:22px;padding-top:10px;border-top:1px solid #e5e7eb;text-align:center;font-size:10px;color:#ccc;font-family:\'JetBrains Mono\',monospace;}' +
+    '.empty-state{display:none;}@media print{body{padding:20px;}@page{margin:1cm;}}' +
+    '</style></head><body>' + content + '</body></html>');
   w.document.close();
-  setTimeout(() => w.print(), 800);
+  setTimeout(function() { w.print(); }, 800);
 }
 
-function invCopyText() { showToast('✓ Use Print/PDF button to save your invoice!'); }
+function downloadInvoiceTxt() {
+  var fromName = document.getElementById('from-name').value || 'Your Company';
+  var toName   = document.getElementById('to-name').value || 'Client';
+  var invNum   = document.getElementById('inv-num').value || 'INV-001';
+  var invDate  = document.getElementById('inv-date').value;
+  var invDue   = document.getElementById('inv-due').value;
+  var t = calcTotals();
+  var rows = t.items.map(function(i) {
+    return '  ' + (i.desc||'Item').substring(0,38).padEnd(38) + '  x' + i.qty + '  ' + invSym + i.total.toFixed(2);
+  }).join('\n');
+  var text = 'INVOICE\n' + '='.repeat(60) + '\n\nInvoice Number : ' + invNum + '\nDate Issued    : ' + invDate + '\nDue Date       : ' + invDue + '\n\n' +
+    '-'.repeat(60) + '\nFROM\n' + '-'.repeat(60) + '\n' + fromName + '\n\n' +
+    '-'.repeat(60) + '\nBILLED TO\n' + '-'.repeat(60) + '\n' + toName + '\n\n' +
+    '-'.repeat(60) + '\nITEMS\n' + '-'.repeat(60) + '\n' + rows + '\n\n' +
+    '-'.repeat(60) + '\n  Subtotal  ' + invSym + t.subtotal.toFixed(2) + '\n  Tax (' + t.vatRate + '%)  ' + invSym + t.vatAmt.toFixed(2) + '\n' +
+    '='.repeat(60) + '\n  TOTAL DUE ' + invSym + t.total.toFixed(2) + '\n' + '='.repeat(60) + '\n\nGenerated by EUToolbox.com';
+  downloadTxt(text, 'invoice-' + invNum + '.txt');
+}
+
+function invCopyText() { showToast('Use Print/PDF button to save your invoice!'); }
 
 function resetInvForm() {
-  ['from-name','from-email','from-addr','from-vat','to-name','to-email','to-addr','inv-notes'].forEach(id => {
+  ['from-name','from-email','from-addr','from-vat','to-name','to-email','to-addr','inv-notes'].forEach(function(id) {
     document.getElementById(id).value = '';
   });
   document.getElementById('items-container').innerHTML = '';
@@ -1407,16 +1824,251 @@ function resetInvForm() {
   invoiceGenerated = false; itemCount = 0;
   addItem(); addItem();
   invLiveUpdate();
-  showToast('✓ Form reset');
+  showToast('Form reset');
 }
 
 // ============================================================
-// SHARED TOAST
+// GDPR GENERATOR
 // ============================================================
+var gdprStep = 1;
+
+function gdprToggle(card, group) {
+  card.classList.toggle('checked');
+  var cb = card.querySelector('.gdpr-checkbox');
+  cb.textContent = card.classList.contains('checked') ? '✓' : '';
+  // Clear error
+  var errId = group === 'data' ? 'gdpr-data-err' : group === 'basis' ? 'gdpr-basis-err' : null;
+  if (errId) document.getElementById(errId).classList.remove('show');
+}
+
+function gdprSwitch(btn) {
+  btn.classList.toggle('on');
+  if (btn.id === 'sw-transfer') {
+    document.getElementById('g-transfer-country-wrap').style.display = btn.classList.contains('on') ? 'block' : 'none';
+  }
+}
+
+function gdprClearErr(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove('error');
+  var err = document.getElementById(id + '-err');
+  if (err) err.classList.remove('show');
+}
+
+function gdprValidate(step) {
+  var ok = true;
+  if (step === 1) {
+    var company = document.getElementById('g-company').value.trim();
+    var url     = document.getElementById('g-url').value.trim();
+    var country = document.getElementById('g-country').value;
+    var email   = document.getElementById('g-email').value.trim();
+    if (!company) { document.getElementById('g-company').classList.add('error'); document.getElementById('g-company-err').classList.add('show'); ok = false; }
+    if (!url || !url.match(/^https?:\/\/.+/)) { document.getElementById('g-url').classList.add('error'); document.getElementById('g-url-err').classList.add('show'); ok = false; }
+    if (!country) { document.getElementById('g-country').classList.add('error'); document.getElementById('g-country-err').classList.add('show'); ok = false; }
+    if (!email || !email.match(/^[^@]+@[^@]+\.[^@]+$/)) { document.getElementById('g-email').classList.add('error'); document.getElementById('g-email-err').classList.add('show'); ok = false; }
+  }
+  if (step === 2) {
+    var dataChecked  = document.querySelectorAll('#gdpr-data-grid .gdpr-check-card.checked').length;
+    var basisChecked = document.querySelectorAll('#gdpr-basis-grid .gdpr-check-card.checked').length;
+    if (dataChecked === 0)  { document.getElementById('gdpr-data-err').classList.add('show'); ok = false; }
+    if (basisChecked === 0) { document.getElementById('gdpr-basis-err').classList.add('show'); ok = false; }
+  }
+  return ok;
+}
+
+function gdprUpdateStepper() {
+  for (var i = 1; i <= 3; i++) {
+    var numEl = document.getElementById('gstep-' + i);
+    var lblEl = document.getElementById('gstep-lbl-' + i);
+    numEl.classList.remove('active','done');
+    lblEl.classList.remove('active');
+    if (i < gdprStep) { numEl.classList.add('done'); numEl.textContent = '✓'; }
+    else if (i === gdprStep) { numEl.classList.add('active'); numEl.textContent = i; lblEl.classList.add('active'); }
+    else { numEl.textContent = i; }
+  }
+  document.getElementById('gdpr-progress-bar').style.width = ((gdprStep - 1) / 2 * 100) + '%';
+}
+
+function gdprNext() {
+  if (!gdprValidate(gdprStep)) return;
+  if (gdprStep === 3) {
+    gdprGenerate(); return;
+  }
+  document.getElementById('gdpr-panel-' + gdprStep).classList.remove('active');
+  gdprStep++;
+  document.getElementById('gdpr-panel-' + gdprStep).classList.add('active');
+  document.getElementById('gdpr-back-btn').style.display = gdprStep > 1 ? 'flex' : 'none';
+  if (gdprStep === 3) {
+    document.getElementById('gdpr-next-btn').textContent = 'Generate Policy';
+    document.getElementById('gdpr-next-btn').className = 'gdpr-gen-btn';
+    document.getElementById('gdpr-next-btn').id = 'gdpr-next-btn';
+  } else {
+    document.getElementById('gdpr-next-btn').textContent = 'Next Step →';
+    document.getElementById('gdpr-next-btn').className = 'gdpr-next-btn';
+  }
+  gdprUpdateStepper();
+}
+
+function gdprBack() {
+  if (gdprStep <= 1) return;
+  document.getElementById('gdpr-panel-' + gdprStep).classList.remove('active');
+  gdprStep--;
+  document.getElementById('gdpr-panel-' + gdprStep).classList.add('active');
+  document.getElementById('gdpr-back-btn').style.display = gdprStep > 1 ? 'flex' : 'none';
+  document.getElementById('gdpr-next-btn').textContent = 'Next Step →';
+  document.getElementById('gdpr-next-btn').className = 'gdpr-next-btn';
+  gdprUpdateStepper();
+}
+
+function gdprGetChecked(gridId) {
+  var cards = document.querySelectorAll('#' + gridId + ' .gdpr-check-card.checked');
+  var labels = [];
+  cards.forEach(function(c) { labels.push(c.querySelector('.gdpr-check-label').textContent); });
+  return labels;
+}
+
+function gdprGenerate() {
+  var company    = document.getElementById('g-company').value.trim();
+  var url        = document.getElementById('g-url').value.trim();
+  var country    = document.getElementById('g-country').value;
+  var email      = document.getElementById('g-email').value.trim();
+  var dpo        = document.getElementById('g-dpo').value.trim();
+  var retention  = document.getElementById('g-retention').value;
+  var cookies    = document.getElementById('sw-cookies').classList.contains('on');
+  var transfer   = document.getElementById('sw-transfer').classList.contains('on');
+  var transferTo = document.getElementById('g-transfer-country').value.trim();
+  var dataList   = gdprGetChecked('gdpr-data-grid');
+  var basisList  = gdprGetChecked('gdpr-basis-grid');
+  var tpList     = gdprGetChecked('gdpr-tp-grid');
+  var date = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+  var sep  = '\u2501'.repeat(56);
+
+  var policy = 'PRIVACY POLICY\n' + company.toUpperCase() + '\n\n' +
+    'Last updated: ' + date + '\nJurisdiction: ' + country + '\nWebsite: ' + url + '\n\n' + sep + '\n\n' +
+    '1. INTRODUCTION\n\n' +
+    company + ' ("we", "us", "our") is committed to protecting your personal data and respecting your privacy in accordance with the General Data Protection Regulation (EU) 2016/679 ("GDPR") and applicable national legislation.\n\n' +
+    'This Privacy Policy explains how we collect, use, store, and protect your personal information when you access or use our website (' + url + ') and any associated services.\n\n' + sep + '\n\n' +
+    '2. DATA CONTROLLER\n\n' +
+    company + '\nCountry: ' + country + '\nPrivacy enquiries: ' + email + (dpo ? '\nData Protection Officer: ' + dpo : '') + '\n\n' + sep + '\n\n' +
+    '3. PERSONAL DATA WE COLLECT\n\n' +
+    'We may collect, process, and store the following categories of personal data:\n\n' +
+    dataList.map(function(l, i) { return '   ' + (i+1) + '. ' + l; }).join('\n') + '\n\n' + sep + '\n\n' +
+    '4. LAWFUL BASIS FOR PROCESSING\n\n' +
+    'We process personal data only where we have a valid legal basis under Article 6 GDPR:\n\n' +
+    (basisList.length > 0 ? basisList.map(function(l, i) { return '   ' + (i+1) + '. ' + l; }).join('\n') : '   1. Legitimate Interests') + '\n\n' + sep + '\n\n' +
+    '5. HOW WE USE YOUR PERSONAL DATA\n\n' +
+    '   — To provide, maintain, and improve our services\n' +
+    '   — To communicate with you regarding your account\n' +
+    '   — To comply with legal obligations and regulatory requirements\n' +
+    '   — To prevent fraud, abuse, and security incidents\n' +
+    '   — To analyse website usage and improve user experience' +
+    (cookies ? '\n   — To manage cookie preferences and track consent' : '') + '\n\n' + sep + '\n\n' +
+    '6. DATA RETENTION\n\n' +
+    'We retain personal data for: ' + retention + '\n\n' +
+    'After this period, personal data is securely deleted or anonymised, unless retention is required by law.\n\n' + sep + '\n\n';
+
+  var sectionNum = 7;
+  if (tpList.length > 0) {
+    policy += sectionNum + '. THIRD-PARTY PROCESSORS\n\n' +
+      'We share personal data with the following third-party service providers under Data Processing Agreements (DPAs):\n\n' +
+      tpList.map(function(l, i) { return '   ' + (i+1) + '. ' + l; }).join('\n') + '\n\n' +
+      'We do not sell your personal data to any third party.\n\n' + sep + '\n\n';
+    sectionNum++;
+  }
+
+  if (transfer) {
+    policy += sectionNum + '. INTERNATIONAL DATA TRANSFERS\n\n' +
+      'We may transfer your personal data outside the European Economic Area (EEA)' + (transferTo ? ', including to ' + transferTo : '') + '. ' +
+      'Where such transfers occur, we ensure adequate safeguards via Standard Contractual Clauses (SCCs) approved by the European Commission or other appropriate mechanisms.\n\n' + sep + '\n\n';
+    sectionNum++;
+  }
+
+  if (cookies) {
+    policy += sectionNum + '. COOKIES\n\n' +
+      'We use cookies and similar tracking technologies. We use strictly necessary cookies (required for operation), analytics cookies (site usage), and marketing cookies (targeted advertising where consented). ' +
+      'You may manage cookie preferences via our consent mechanism or browser settings.\n\n' + sep + '\n\n';
+    sectionNum++;
+  }
+
+  policy += sectionNum + '. YOUR RIGHTS UNDER GDPR\n\n' +
+    'As a data subject under Chapter III of the GDPR, you have the right to:\n\n' +
+    '   — Access (Article 15): Request a copy of your personal data\n' +
+    '   — Rectification (Article 16): Correct inaccurate or incomplete data\n' +
+    '   — Erasure (Article 17): Request deletion of your data\n' +
+    '   — Restriction (Article 18): Request limited processing\n' +
+    '   — Data Portability (Article 20): Receive data in machine-readable format\n' +
+    '   — Object (Article 21): Object to processing based on legitimate interests\n' +
+    '   — Withdraw Consent: Where processing is consent-based\n\n' +
+    'To exercise your rights, contact: ' + email + '\n\n' + sep + '\n\n';
+  sectionNum++;
+
+  policy += sectionNum + '. DATA SECURITY\n\n' +
+    'We implement appropriate technical and organisational measures including encryption in transit (TLS), access controls, and regular security assessments to protect your personal data.\n\n' + sep + '\n\n' +
+    'CONTACT US\n\n' + company + '\nEmail: ' + email + '\nWebsite: ' + url + '\nCountry: ' + country +
+    (dpo ? '\nDPO: ' + dpo : '') + '\n\nThis policy is effective as of ' + date + '. Generated by EUToolbox.com.';
+
+  document.getElementById('gdpr-textarea').value = policy;
+
+  // Hide form, show output
+  for (var i = 1; i <= 3; i++) document.getElementById('gdpr-panel-' + i).classList.remove('active');
+  document.getElementById('gdpr-stepper').style.display = 'none';
+  document.getElementById('gdpr-progress-wrap').style.display = 'none';
+  document.getElementById('gdpr-nav').style.display = 'none';
+  document.getElementById('gdpr-output').classList.add('show');
+  showToast('Privacy policy generated!');
+}
+
+function gdprCopy() {
+  var text = document.getElementById('gdpr-textarea').value;
+  navigator.clipboard.writeText(text).then(function() { showToast('Copied to clipboard!'); });
+}
+
+function gdprDownload() {
+  var company = document.getElementById('g-company').value.trim() || 'company';
+  var text = document.getElementById('gdpr-textarea').value;
+  downloadTxt(text, 'privacy-policy-' + company.toLowerCase().replace(/\s+/g, '-') + '.txt');
+}
+
+function gdprRestart() {
+  gdprStep = 1;
+  // Reset all checks
+  document.querySelectorAll('.gdpr-check-card').forEach(function(c) {
+    c.classList.remove('checked');
+    c.querySelector('.gdpr-checkbox').textContent = '';
+  });
+  document.querySelectorAll('.gdpr-switch').forEach(function(s) { s.classList.remove('on'); });
+  document.getElementById('g-transfer-country-wrap').style.display = 'none';
+  ['g-company','g-url','g-email','g-dpo','g-transfer-country'].forEach(function(id) {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('g-country').selectedIndex = 0;
+  document.getElementById('g-retention').selectedIndex = 2;
+  document.getElementById('gdpr-output').classList.remove('show');
+  document.getElementById('gdpr-stepper').style.display = 'flex';
+  document.getElementById('gdpr-progress-wrap').style.display = 'block';
+  document.getElementById('gdpr-nav').style.display = 'flex';
+  document.getElementById('gdpr-panel-1').classList.add('active');
+  document.getElementById('gdpr-back-btn').style.display = 'none';
+  document.getElementById('gdpr-next-btn').textContent = 'Next Step →';
+  document.getElementById('gdpr-next-btn').className = 'gdpr-next-btn';
+  gdprUpdateStepper();
+}
+
+// ============================================================
+// SHARED UTILITIES
+// ============================================================
+function downloadTxt(text, filename) {
+  var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
 function showToast(msg) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+  setTimeout(function() { t.classList.remove('show'); }, 2800);
 }
 
 // ============================================================
