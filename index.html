@@ -742,6 +742,160 @@
   .gdpr-feature-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
   .gdpr-feature-desc { font-size: 11px; color: var(--text3); }
 
+  /* ========= CURRENCY CONVERTER STYLES ========= */
+  .fx-layout {
+    display: grid; grid-template-columns: 380px 1fr;
+    gap: 24px; align-items: start;
+  }
+  .fx-card {
+    background: var(--card); border: 1px solid var(--border2);
+    border-radius: 24px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .fx-card-body { padding: 28px; }
+  .fx-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .fx-label {
+    font-size: 11px; font-weight: 600; color: var(--text2);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .fx-input {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 12px; color: var(--text); font-family: var(--mono);
+    font-size: 20px; font-weight: 600; padding: 13px 16px;
+    transition: all 0.2s; outline: none; appearance: none; -webkit-appearance: none;
+  }
+  .fx-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,110,247,0.15); }
+  .fx-select {
+    width: 100%; background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 12px; color: var(--text); font-family: var(--sans);
+    font-size: 15px; padding: 13px 40px 13px 16px; transition: all 0.2s;
+    outline: none; appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238892b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center;
+  }
+  .fx-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,110,247,0.15); background-color: var(--bg3); }
+  .fx-select option { background: var(--bg2); font-size: 14px; }
+  .fx-swap-row { display: flex; justify-content: center; margin: 4px 0; }
+  .fx-swap-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--border2); background: var(--bg3);
+    color: var(--accent); cursor: pointer; font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .fx-swap-btn:hover { background: rgba(79,110,247,0.12); border-color: var(--accent); transform: rotate(180deg); }
+  .fx-result {
+    background: linear-gradient(135deg, rgba(79,110,247,0.08), rgba(124,58,237,0.05));
+    border: 1px solid rgba(79,110,247,0.3); border-radius: 16px;
+    padding: 20px; margin-top: 4px;
+  }
+  .fx-result-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .fx-result-value { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--accent); letter-spacing: -1px; }
+  .fx-result-code { font-size: 16px; font-weight: 400; color: var(--text2); margin-left: 6px; font-family: var(--sans); }
+  .fx-result-rate { font-size: 12px; color: var(--text3); margin-top: 6px; font-family: var(--mono); }
+  .fx-copy-btn {
+    margin-top: 12px; padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--border2); background: transparent;
+    color: var(--text2); font-family: var(--sans); font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .fx-copy-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.06); }
+  .fx-status {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text3); margin-bottom: 18px;
+  }
+  .fx-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  .fx-status-dot.loading { background: var(--text3); animation: none; }
+  .fx-status-dot.error { background: var(--red); animation: none; }
+  .fx-popular { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .fx-pill {
+    padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--text2); font-family: var(--sans);
+    font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  }
+  .fx-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(79,110,247,0.06); }
+  .fx-pill.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border-color: transparent; }
+  .fx-refresh-btn {
+    background: transparent; border: none; color: var(--text3);
+    cursor: pointer; font-size: 12px; font-family: var(--sans);
+    padding: 0; margin-left: 8px; transition: color 0.2s; text-decoration: underline;
+  }
+  .fx-refresh-btn:hover { color: var(--accent); }
+
+  .fx-table-card {
+    background: var(--card); border: 1px solid var(--border2);
+    border-radius: 24px; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .fx-table-head {
+    padding: 22px 28px 18px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: linear-gradient(135deg, rgba(79,110,247,0.06), rgba(6,182,212,0.03));
+    flex-wrap: wrap;
+  }
+  .fx-table-title { font-size: 15px; font-weight: 600; }
+  .fx-table-sub { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .fx-search-wrap { position: relative; }
+  .fx-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 12px; pointer-events: none; }
+  .fx-search {
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 10px; color: var(--text); font-family: var(--sans);
+    font-size: 13px; padding: 9px 14px 9px 32px; width: 180px; outline: none; transition: all 0.2s;
+  }
+  .fx-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(79,110,247,0.12); }
+  .fx-table-wrap { overflow-y: auto; max-height: 600px; }
+  .fx-table { width: 100%; border-collapse: collapse; }
+  .fx-table thead th {
+    padding: 12px 20px; text-align: left; font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3);
+    position: sticky; top: 0; background: var(--card); border-bottom: 1px solid var(--border);
+  }
+  .fx-table thead th.tr { text-align: right; }
+  .fx-table tbody tr { border-bottom: 1px solid rgba(99,120,255,0.06); cursor: pointer; transition: background 0.15s; }
+  .fx-table tbody tr:hover { background: rgba(79,110,247,0.05); }
+  .fx-table tbody tr.fx-selected { background: rgba(79,110,247,0.08); border-left: 3px solid var(--accent); }
+  .fx-table td { padding: 10px 20px; }
+  .fx-table td.tr { text-align: right; font-family: var(--mono); }
+  .fx-flag { font-size: 18px; margin-right: 8px; }
+  .fx-code { font-weight: 600; font-size: 13px; color: var(--text); }
+  .fx-name { font-size: 11px; color: var(--text3); }
+  .fx-val { font-size: 14px; font-weight: 600; color: var(--text); font-family: var(--mono); }
+  .fx-val1 { font-size: 11px; color: var(--text3); font-family: var(--mono); }
+  .fx-sel-badge { font-size: 9px; background: rgba(79,110,247,0.15); color: var(--accent); padding: 2px 6px; border-radius: 8px; margin-left: 6px; font-weight: 600; letter-spacing: 0.05em; }
+  .fx-loading-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: var(--text3); gap: 12px; }
+  .fx-spinner { width: 28px; height: 28px; border: 3px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .fx-error-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; gap: 12px; text-align: center; }
+  .fx-err-icon { font-size: 32px; }
+  .fx-err-text { font-size: 13px; color: var(--text3); max-width: 240px; line-height: 1.6; }
+  .fx-retry-btn {
+    padding: 9px 18px; border-radius: 10px; border: 1px solid var(--border2);
+    background: transparent; color: var(--text2); font-family: var(--sans);
+    font-size: 13px; cursor: pointer; transition: all 0.2s;
+  }
+  .fx-retry-btn:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 900px) { .fx-layout { grid-template-columns: 1fr; } }
+
+  /* ========= FX TICKER MARQUEE ========= */
+  .fx-ticker-bar {
+    width: 100%; background: var(--nav); border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden; height: 30px; cursor: pointer;
+  }
+  .fx-ticker-bar:hover .fx-ticker-track { animation-play-state: paused; }
+  .fx-ticker-track {
+    display: flex; align-items: center; height: 30px; white-space: nowrap;
+    animation: fxMarquee 48s linear infinite;
+  }
+  @keyframes fxMarquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .fx-ticker-item {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 0 20px; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.75);
+  }
+  .fx-ticker-code { font-family: var(--mono); font-weight: 700; color: #fff; letter-spacing: 0.04em; }
+  .fx-ticker-rate { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+  .fx-ticker-sep { color: rgba(255,255,255,0.2); font-size: 14px; margin-left: 12px; }
+
   /* FOOTER */
   footer {
     position: relative; z-index: 1; text-align: center;
@@ -803,9 +957,15 @@
     <button class="nav-tool active" id="nav-vat" onclick="switchTool('vat')">VAT Calculator</button>
     <button class="nav-tool" id="nav-inv" onclick="switchTool('invoice')">Invoice Generator</button>
     <button class="nav-tool" id="nav-gdpr" onclick="switchTool('gdpr')">GDPR Generator</button>
+    <button class="nav-tool" id="nav-fx" onclick="switchTool('fx')">Currency</button>
   </div>
   <div class="nav-badge">Free EU Tools</div>
 </nav>
+
+<!-- FX TICKER BAR -->
+<div class="fx-ticker-bar" id="fx-ticker-bar" onclick="switchTool('fx')" title="Open Currency Converter" style="display:none">
+  <div class="fx-ticker-track" id="fx-ticker-track"></div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -814,7 +974,8 @@
   <p class="hero-sub">Free tools for EU businesses — VAT calculator, invoice generator, and GDPR policy generator. No signup, no fees, forever free.</p>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">29</div><div class="stat-label">Countries</div></div>
-    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Free Tools</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Free Tools</div></div>
+    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Currencies</div></div>
     <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Rates Updated</div></div>
   </div>
 </section>
@@ -827,6 +988,7 @@
     <button class="tab-btn active" id="tab-vat" onclick="switchTool('vat')">VAT Calculator</button>
     <button class="tab-btn" id="tab-inv" onclick="switchTool('invoice')">Invoice Generator</button>
     <button class="tab-btn" id="tab-gdpr" onclick="switchTool('gdpr')">GDPR Generator</button>
+    <button class="tab-btn" id="tab-fx" onclick="switchTool('fx')">💱 Currency Converter</button>
   </div>
 
   <!-- ====== VAT CALCULATOR PANEL ====== -->
@@ -1452,6 +1614,101 @@
 
   </div><!-- end panel-gdpr -->
 
+  <!-- ====== CURRENCY CONVERTER PANEL ====== -->
+  <div class="tool-panel" id="panel-fx">
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <div class="tool-title">
+          <div class="tool-icon">💱</div>
+          Currency Converter
+        </div>
+        <div class="tool-desc">Convert between 50+ world currencies with live exchange rates. Fully client-side — no data stored.</div>
+      </div>
+
+      <div class="fx-layout">
+        <!-- LEFT: Converter Form -->
+        <div>
+          <div class="fx-card">
+            <div class="fx-card-body">
+              <div class="fx-status">
+                <div class="fx-status-dot loading" id="fx-dot"></div>
+                <span id="fx-status-text">Loading rates…</span>
+                <button class="fx-refresh-btn" onclick="fxFetch(true)">↻ Refresh</button>
+              </div>
+
+              <div class="fx-field">
+                <label class="fx-label">Amount</label>
+                <input class="fx-input" type="number" id="fx-amount" value="1" min="0" step="any" oninput="fxConvert()" />
+              </div>
+
+              <div class="fx-field">
+                <label class="fx-label">From</label>
+                <select class="fx-select" id="fx-from" onchange="fxConvert(); fxRenderTable()"></select>
+              </div>
+
+              <div class="fx-swap-row">
+                <button class="fx-swap-btn" onclick="fxSwap()" title="Swap currencies">⇄</button>
+              </div>
+
+              <div class="fx-field">
+                <label class="fx-label">To</label>
+                <select class="fx-select" id="fx-to" onchange="fxConvert(); fxRenderTable()"></select>
+              </div>
+
+              <div class="fx-result" id="fx-result-box">
+                <div class="fx-result-label">Result</div>
+                <div>
+                  <span class="fx-result-value" id="fx-result-val">—</span>
+                  <span class="fx-result-code" id="fx-result-code"></span>
+                </div>
+                <div class="fx-result-rate" id="fx-result-rate"></div>
+                <button class="fx-copy-btn" onclick="fxCopy()">⎘ Copy result</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:18px;">
+            <div class="fx-label" style="margin-bottom:10px;">Quick select target</div>
+            <div class="fx-popular" id="fx-pills">
+              <button class="fx-pill" onclick="fxPickTo('USD')">$ USD</button>
+              <button class="fx-pill" onclick="fxPickTo('EUR')">€ EUR</button>
+              <button class="fx-pill" onclick="fxPickTo('GBP')">£ GBP</button>
+              <button class="fx-pill" onclick="fxPickTo('CHF')">CHF</button>
+              <button class="fx-pill" onclick="fxPickTo('JPY')">¥ JPY</button>
+              <button class="fx-pill" onclick="fxPickTo('CAD')">CA$</button>
+              <button class="fx-pill" onclick="fxPickTo('AUD')">AU$</button>
+              <button class="fx-pill" onclick="fxPickTo('CNY')">¥ CNY</button>
+              <button class="fx-pill" onclick="fxPickTo('INR')">₹ INR</button>
+              <button class="fx-pill" onclick="fxPickTo('SGD')">SG$</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: All Rates Table -->
+        <div class="fx-table-card">
+          <div class="fx-table-head">
+            <div>
+              <div class="fx-table-title">All rates from <span id="fx-table-base">EUR</span></div>
+              <div class="fx-table-sub" id="fx-table-sub">Loading…</div>
+            </div>
+            <div class="fx-search-wrap">
+              <span class="fx-search-icon">🔍</span>
+              <input class="fx-search" type="text" placeholder="Search currency…" id="fx-search" oninput="fxRenderTable()" />
+            </div>
+          </div>
+          <div class="fx-table-wrap">
+            <div id="fx-table-body">
+              <div class="fx-loading-state">
+                <div class="fx-spinner"></div>
+                <div>Fetching live rates…</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end panel-fx -->
+
 </main>
 
 <!-- FOOTER -->
@@ -1460,6 +1717,7 @@
     <a onclick="switchTool('vat')">VAT Calculator</a>
     <a onclick="switchTool('invoice')">Invoice Generator</a>
     <a onclick="switchTool('gdpr')">GDPR Generator</a>
+    <a onclick="switchTool('fx')">Currency Converter</a>
     <a href="#">Privacy Policy</a>
     <a href="#">Contact</a>
   </div>
@@ -1473,7 +1731,7 @@
 // ============================================================
 function switchTool(tool) {
   const key = tool === 'invoice' ? 'inv' : tool;
-  const keys = ['vat', 'inv', 'gdpr'];
+  const keys = ['vat', 'inv', 'gdpr', 'fx'];
   keys.forEach(function(k) {
     var panel = document.getElementById('panel-' + k);
     var tab   = document.getElementById('tab-' + k);
@@ -2055,6 +2313,233 @@ function gdprRestart() {
 }
 
 // ============================================================
+// CURRENCY CONVERTER
+// ============================================================
+var fxRatesData = null;
+var fxBase = 'EUR';
+var fxCacheKey = 'eutbx-fx-rates';
+var fxCacheTsKey = 'eutbx-fx-ts';
+var fxTTL = 3600000; // 1 hour
+
+var FX_CURRENCIES = [
+  { code: 'USD', name: 'US Dollar', flag: '🇺🇸', symbol: '$' },
+  { code: 'EUR', name: 'Euro', flag: '🇪🇺', symbol: '€' },
+  { code: 'GBP', name: 'British Pound', flag: '🇬🇧', symbol: '£' },
+  { code: 'CHF', name: 'Swiss Franc', flag: '🇨🇭', symbol: 'CHF' },
+  { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵', symbol: '¥' },
+  { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦', symbol: 'CA$' },
+  { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺', symbol: 'AU$' },
+  { code: 'CNY', name: 'Chinese Yuan', flag: '🇨🇳', symbol: '¥' },
+  { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳', symbol: '₹' },
+  { code: 'SGD', name: 'Singapore Dollar', flag: '🇸🇬', symbol: 'SG$' },
+  { code: 'HKD', name: 'Hong Kong Dollar', flag: '🇭🇰', symbol: 'HK$' },
+  { code: 'SEK', name: 'Swedish Krona', flag: '🇸🇪', symbol: 'kr' },
+  { code: 'NOK', name: 'Norwegian Krone', flag: '🇳🇴', symbol: 'kr' },
+  { code: 'DKK', name: 'Danish Krone', flag: '🇩🇰', symbol: 'kr' },
+  { code: 'NZD', name: 'New Zealand Dollar', flag: '🇳🇿', symbol: 'NZ$' },
+  { code: 'MXN', name: 'Mexican Peso', flag: '🇲🇽', symbol: 'MX$' },
+  { code: 'BRL', name: 'Brazilian Real', flag: '🇧🇷', symbol: 'R$' },
+  { code: 'KRW', name: 'South Korean Won', flag: '🇰🇷', symbol: '₩' },
+  { code: 'TRY', name: 'Turkish Lira', flag: '🇹🇷', symbol: '₺' },
+  { code: 'ZAR', name: 'South African Rand', flag: '🇿🇦', symbol: 'R' },
+  { code: 'PLN', name: 'Polish Złoty', flag: '🇵🇱', symbol: 'zł' },
+  { code: 'CZK', name: 'Czech Koruna', flag: '🇨🇿', symbol: 'Kč' },
+  { code: 'HUF', name: 'Hungarian Forint', flag: '🇭🇺', symbol: 'Ft' },
+  { code: 'RON', name: 'Romanian Leu', flag: '🇷🇴', symbol: 'lei' },
+  { code: 'BGN', name: 'Bulgarian Lev', flag: '🇧🇬', symbol: 'лв' },
+  { code: 'HRK', name: 'Croatian Kuna', flag: '🇭🇷', symbol: 'kn' },
+  { code: 'AED', name: 'UAE Dirham', flag: '🇦🇪', symbol: 'د.إ' },
+  { code: 'SAR', name: 'Saudi Riyal', flag: '🇸🇦', symbol: '﷼' },
+  { code: 'ILS', name: 'Israeli Shekel', flag: '🇮🇱', symbol: '₪' },
+  { code: 'THB', name: 'Thai Baht', flag: '🇹🇭', symbol: '฿' },
+  { code: 'IDR', name: 'Indonesian Rupiah', flag: '🇮🇩', symbol: 'Rp' },
+  { code: 'MYR', name: 'Malaysian Ringgit', flag: '🇲🇾', symbol: 'RM' },
+  { code: 'PHP', name: 'Philippine Peso', flag: '🇵🇭', symbol: '₱' },
+  { code: 'PKR', name: 'Pakistani Rupee', flag: '🇵🇰', symbol: '₨' },
+  { code: 'BDT', name: 'Bangladeshi Taka', flag: '🇧🇩', symbol: '৳' },
+  { code: 'EGP', name: 'Egyptian Pound', flag: '🇪🇬', symbol: 'E£' },
+  { code: 'NGN', name: 'Nigerian Naira', flag: '🇳🇬', symbol: '₦' },
+  { code: 'KES', name: 'Kenyan Shilling', flag: '🇰🇪', symbol: 'KSh' },
+  { code: 'GHS', name: 'Ghanaian Cedi', flag: '🇬🇭', symbol: 'GH₵' },
+  { code: 'UAH', name: 'Ukrainian Hryvnia', flag: '🇺🇦', symbol: '₴' },
+  { code: 'CLP', name: 'Chilean Peso', flag: '🇨🇱', symbol: 'CL$' },
+  { code: 'COP', name: 'Colombian Peso', flag: '🇨🇴', symbol: 'CO$' },
+  { code: 'PEN', name: 'Peruvian Sol', flag: '🇵🇪', symbol: 'S/' },
+  { code: 'ARS', name: 'Argentine Peso', flag: '🇦🇷', symbol: 'AR$' },
+  { code: 'DZD', name: 'Algerian Dinar', flag: '🇩🇿', symbol: 'DA' },
+  { code: 'MAD', name: 'Moroccan Dirham', flag: '🇲🇦', symbol: 'MAD' },
+  { code: 'QAR', name: 'Qatari Riyal', flag: '🇶🇦', symbol: 'QR' },
+  { code: 'KWD', name: 'Kuwaiti Dinar', flag: '🇰🇼', symbol: 'KD' },
+  { code: 'OMR', name: 'Omani Rial', flag: '🇴🇲', symbol: 'OMR' },
+  { code: 'BHD', name: 'Bahraini Dinar', flag: '🇧🇭', symbol: 'BD' },
+  { code: 'JOD', name: 'Jordanian Dinar', flag: '🇯🇴', symbol: 'JD' }
+];
+
+function fxGetMeta(code) {
+  return FX_CURRENCIES.find(function(c) { return c.code === code; }) || { code: code, name: code, flag: '🏳', symbol: code };
+}
+
+function fxFmt(n, code) {
+  if (!isFinite(n)) return '—';
+  var decimals = (code === 'JPY' || code === 'KRW' || code === 'IDR' || code === 'HUF' || code === 'CLP' || code === 'COP') ? 0 : 2;
+  return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: Math.max(decimals, n < 0.01 ? 6 : 4) });
+}
+
+function fxPopulateSelects() {
+  var selFrom = document.getElementById('fx-from');
+  var selTo   = document.getElementById('fx-to');
+  if (!selFrom || !selTo) return;
+  selFrom.innerHTML = ''; selTo.innerHTML = '';
+  FX_CURRENCIES.forEach(function(c) {
+    var o1 = document.createElement('option'); o1.value = c.code; o1.textContent = c.flag + '  ' + c.code + ' — ' + c.name;
+    var o2 = o1.cloneNode(true);
+    selFrom.appendChild(o1); selTo.appendChild(o2);
+  });
+  selFrom.value = 'EUR'; selTo.value = 'USD';
+}
+
+function fxSetStatus(state, text) {
+  var dot  = document.getElementById('fx-dot');
+  var span = document.getElementById('fx-status-text');
+  if (!dot || !span) return;
+  dot.className = 'fx-status-dot' + (state !== 'ok' ? ' ' + state : '');
+  span.textContent = text;
+}
+
+function fxFetch(force) {
+  var now = Date.now();
+  if (!force) {
+    try {
+      var cached = sessionStorage.getItem(fxCacheKey);
+      var ts     = parseInt(sessionStorage.getItem(fxCacheTsKey) || '0', 10);
+      if (cached && now - ts < fxTTL) {
+        fxRatesData = JSON.parse(cached);
+        fxSetStatus('ok', 'Live rates · Updated ' + new Date(ts).toLocaleTimeString());
+        fxConvert(); fxRenderTable(); return;
+      }
+    } catch(e) {}
+  }
+  fxSetStatus('loading', 'Fetching live rates…');
+  fetch('https://open.er-api.com/v6/latest/EUR')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data && data.rates) {
+        fxRatesData = data.rates;
+        try { sessionStorage.setItem(fxCacheKey, JSON.stringify(data.rates)); sessionStorage.setItem(fxCacheTsKey, String(Date.now())); } catch(e) {}
+        fxSetStatus('ok', 'Live rates · Updated ' + new Date().toLocaleTimeString());
+        fxConvert(); fxRenderTable();
+      } else { fxSetStatus('error', 'Unexpected response — try refresh'); fxShowError(); }
+    })
+    .catch(function() { fxSetStatus('error', 'Network error — try refresh'); fxShowError(); });
+}
+
+function fxGetRate(fromCode, toCode) {
+  if (!fxRatesData) return null;
+  var rateFrom = fxRatesData[fromCode];
+  var rateTo   = fxRatesData[toCode];
+  if (!rateFrom || !rateTo) return null;
+  return rateTo / rateFrom;
+}
+
+function fxConvert() {
+  var amount  = parseFloat(document.getElementById('fx-amount').value);
+  var from    = document.getElementById('fx-from').value;
+  var to      = document.getElementById('fx-to').value;
+  var resVal  = document.getElementById('fx-result-val');
+  var resCode = document.getElementById('fx-result-code');
+  var resRate = document.getElementById('fx-result-rate');
+  if (!resVal) return;
+  if (!fxRatesData) { resVal.textContent = '—'; resCode.textContent = ''; resRate.textContent = ''; return; }
+  var rate    = fxGetRate(from, to);
+  if (!rate) { resVal.textContent = '—'; return; }
+  var result  = amount * rate;
+  var fromMeta = fxGetMeta(from); var toMeta = fxGetMeta(to);
+  resVal.textContent  = fxFmt(result, to);
+  resCode.textContent = to;
+  resRate.textContent = '1 ' + from + ' = ' + fxFmt(rate, to) + ' ' + to + '   ·   1 ' + to + ' = ' + fxFmt(1/rate, from) + ' ' + from;
+  fxUpdatePills(to);
+}
+
+function fxUpdatePills(activeTo) {
+  document.querySelectorAll('.fx-pill').forEach(function(btn) {
+    var code = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+    btn.classList.toggle('active', code === activeTo);
+  });
+}
+
+function fxPickTo(code) {
+  var sel = document.getElementById('fx-to'); if (!sel) return;
+  sel.value = code; fxConvert(); fxRenderTable();
+}
+
+function fxSwap() {
+  var selFrom = document.getElementById('fx-from'); var selTo = document.getElementById('fx-to');
+  if (!selFrom || !selTo) return;
+  var tmp = selFrom.value; selFrom.value = selTo.value; selTo.value = tmp;
+  fxConvert(); fxRenderTable();
+}
+
+function fxCopy() {
+  var val = document.getElementById('fx-result-val').textContent;
+  var code = document.getElementById('fx-result-code').textContent;
+  if (!val || val === '—') return;
+  navigator.clipboard && navigator.clipboard.writeText(val + ' ' + code).then(function() { showToast('Result copied!'); }).catch(function() {});
+}
+
+function fxRenderTable() {
+  var container = document.getElementById('fx-table-body');
+  var baseSel   = document.getElementById('fx-from');
+  var toSel     = document.getElementById('fx-to');
+  var search    = (document.getElementById('fx-search').value || '').toLowerCase();
+  var baseCode  = baseSel ? baseSel.value : 'EUR';
+  var toCode    = toSel ? toSel.value : 'USD';
+  var amount    = parseFloat(document.getElementById('fx-amount').value) || 1;
+  if (!container) return;
+
+  var tableSub = document.getElementById('fx-table-sub');
+  if (tableSub) tableSub.textContent = '1 ' + baseCode + ' = X currency · ' + FX_CURRENCIES.length + ' currencies';
+  var tableBase = document.getElementById('fx-table-base');
+  if (tableBase) tableBase.textContent = baseCode;
+
+  if (!fxRatesData) { container.innerHTML = '<div class="fx-loading-state"><div class="fx-spinner"></div><div>Fetching live rates…</div></div>'; return; }
+
+  var filtered = FX_CURRENCIES.filter(function(c) {
+    if (c.code === baseCode) return false;
+    if (!search) return true;
+    return c.code.toLowerCase().includes(search) || c.name.toLowerCase().includes(search);
+  });
+
+  if (!filtered.length) { container.innerHTML = '<div class="fx-loading-state" style="padding:40px"><div>No currencies match "' + search + '"</div></div>'; return; }
+
+  var html = '<table class="fx-table"><thead><tr><th>Currency</th><th class="tr">1 ' + baseCode + '</th><th class="tr">' + fxFmt(amount, baseCode) + ' ' + baseCode + '</th></tr></thead><tbody>';
+  filtered.forEach(function(c) {
+    var rate   = fxGetRate(baseCode, c.code);
+    var rate1  = rate ? fxFmt(rate, c.code) : '—';
+    var rateAmt= rate ? fxFmt(amount * rate, c.code) : '—';
+    var isSelected = c.code === toCode;
+    html += '<tr class="' + (isSelected ? 'fx-selected' : '') + '" onclick="fxPickTo(\'' + c.code + '\')">';
+    html += '<td><span class="fx-flag">' + c.flag + '</span><strong class="fx-code">' + c.code + '</strong>';
+    if (isSelected) html += '<span class="fx-sel-badge">selected</span>';
+    html += '<div class="fx-name">' + c.name + '</div></td>';
+    html += '<td class="tr"><div class="fx-val">' + rate1 + ' ' + c.symbol + '</div><div class="fx-val1"></div></td>';
+    html += '<td class="tr"><div class="fx-val">' + rateAmt + '</div></td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+function fxShowError() {
+  var container = document.getElementById('fx-table-body'); if (!container) return;
+  container.innerHTML = '<div class="fx-error-state"><div class="fx-err-icon">⚠️</div><div class="fx-err-text">Could not load exchange rates. Please check your connection and try again.</div><button class="fx-retry-btn" onclick="fxFetch(true)">↻ Retry</button></div>';
+}
+
+function fxInit() {
+  fxPopulateSelects();
+  fxFetch(false);
+}
+
+// ============================================================
 // SHARED UTILITIES
 // ============================================================
 function downloadTxt(text, filename) {
@@ -2072,10 +2557,95 @@ function showToast(msg) {
 }
 
 // ============================================================
+// FX TICKER MARQUEE
+// ============================================================
+var TICKER_PAIRS = [
+  { from:'EUR', to:'USD', ff:'🇪🇺', tf:'🇺🇸' },
+  { from:'GBP', to:'USD', ff:'🇬🇧', tf:'🇺🇸' },
+  { from:'USD', to:'JPY', ff:'🇺🇸', tf:'🇯🇵' },
+  { from:'EUR', to:'GBP', ff:'🇪🇺', tf:'🇬🇧' },
+  { from:'USD', to:'CHF', ff:'🇺🇸', tf:'🇨🇭' },
+  { from:'AUD', to:'USD', ff:'🇦🇺', tf:'🇺🇸' },
+  { from:'USD', to:'CAD', ff:'🇺🇸', tf:'🇨🇦' },
+  { from:'EUR', to:'JPY', ff:'🇪🇺', tf:'🇯🇵' },
+  { from:'GBP', to:'JPY', ff:'🇬🇧', tf:'🇯🇵' },
+  { from:'EUR', to:'CHF', ff:'🇪🇺', tf:'🇨🇭' },
+  { from:'NZD', to:'USD', ff:'🇳🇿', tf:'🇺🇸' },
+  { from:'USD', to:'CNY', ff:'🇺🇸', tf:'🇨🇳' },
+  { from:'USD', to:'INR', ff:'🇺🇸', tf:'🇮🇳' },
+  { from:'USD', to:'SGD', ff:'🇺🇸', tf:'🇸🇬' },
+  { from:'USD', to:'KRW', ff:'🇺🇸', tf:'🇰🇷' },
+  { from:'USD', to:'MXN', ff:'🇺🇸', tf:'🇲🇽' },
+  { from:'EUR', to:'AUD', ff:'🇪🇺', tf:'🇦🇺' },
+  { from:'USD', to:'BRL', ff:'🇺🇸', tf:'🇧🇷' }
+];
+
+function tickerGetRate(rates, from, to) {
+  if (from === 'USD') return rates[to] || null;
+  if (to === 'USD') return rates[from] ? 1 / rates[from] : null;
+  if (!rates[from] || !rates[to]) return null;
+  return rates[to] / rates[from];
+}
+
+function tickerFmtRate(val, to) {
+  var hi = ['JPY','KRW','IDR','VND','CLP','HUF','INR','MXN'].indexOf(to) >= 0;
+  return val.toLocaleString('en-US', { minimumFractionDigits: hi?2:4, maximumFractionDigits: hi?2:4 });
+}
+
+function buildTicker(rates) {
+  var items = TICKER_PAIRS.map(function(p) {
+    var r = tickerGetRate(rates, p.from, p.to);
+    return r !== null ? { p:p, r:r } : null;
+  }).filter(Boolean);
+  if (!items.length) return;
+
+  var doubled = items.concat(items);
+  var html = doubled.map(function(it) {
+    return '<span class="fx-ticker-item">'
+      + '<span>' + it.p.ff + '</span>'
+      + '<span class="fx-ticker-code">' + it.p.from + '/' + it.p.to + '</span>'
+      + '<span class="fx-ticker-rate">' + tickerFmtRate(it.r, it.p.to) + '</span>'
+      + '<span class="fx-ticker-sep">·</span>'
+      + '</span>';
+  }).join('');
+
+  var track = document.getElementById('fx-ticker-track');
+  var bar   = document.getElementById('fx-ticker-bar');
+  if (track && bar) {
+    track.innerHTML = html;
+    bar.style.display = '';
+    track.style.animationDuration = (items.length * 2.8) + 's';
+  }
+}
+
+function tickerInit() {
+  var cacheKey  = 'eutbx-ticker-rates';
+  var cacheTsKey = 'eutbx-ticker-ts';
+  var ttl = 3600000;
+  var now = Date.now();
+  try {
+    var cached = sessionStorage.getItem(cacheKey);
+    var ts     = parseInt(sessionStorage.getItem(cacheTsKey) || '0', 10);
+    if (cached && now - ts < ttl) { buildTicker(JSON.parse(cached)); return; }
+  } catch(e) {}
+  fetch('https://open.er-api.com/v6/latest/USD')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.rates) {
+        try { sessionStorage.setItem(cacheKey, JSON.stringify(d.rates)); sessionStorage.setItem(cacheTsKey, String(Date.now())); } catch(e) {}
+        buildTicker(d.rates);
+      }
+    })
+    .catch(function(){});
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderRates();
 invInit();
+fxInit();
+tickerInit();
 </script>
 </body>
 </html>
