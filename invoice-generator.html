@@ -1476,6 +1476,10 @@ function generateInvoice() {
 }
 
 function printInvoice() {
+  gtag('event', 'printpdf_invoice_click', {
+  method: 'button',
+  page: 'invoice_printpdf'
+});
   var content = document.getElementById('invoice-preview').innerHTML;
   var w = window.open('', '_blank');
   w.document.write('<!DOCTYPE html><html><head><title>' + (document.getElementById('inv-num').value || 'Invoice') + '</title>' +
@@ -1507,6 +1511,10 @@ function printInvoice() {
 }
 
 function downloadInvoiceTxt() {
+ gtag('event', 'downloadtxt_invoice_click', {
+  method: 'button',
+  page: 'invoice_downloadtxt'
+});
   var fromName = document.getElementById('from-name').value || 'Your Company';
   var toName   = document.getElementById('to-name').value || 'Client';
   var invNum   = document.getElementById('inv-num').value || 'INV-001';
