@@ -1530,17 +1530,10 @@ function gdprGetChecked(gridId) {
 }
 
 function gdprGenerate() {
-  function generateGDPR() {
-
-  // GA4 tracking
   gtag('event', 'generate_gdpr_click', {
-    method: 'button',
-    page: 'gdpr_generator'
-  });
-
-  // existing GDPR generation logic
-  ...
-}
+  method: 'button',
+  page: 'gdpr_generator'
+});
   var company    = document.getElementById('g-company').value.trim();
   var url        = document.getElementById('g-url').value.trim();
   var country    = document.getElementById('g-country').value;
