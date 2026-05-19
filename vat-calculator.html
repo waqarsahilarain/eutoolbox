@@ -1395,6 +1395,11 @@ function fmtVat(num, currency) {
 }
 
 function calculate() {
+  // GA4 tracking
+  gtag('event', 'calculate_vat_click', {
+    method: 'button',
+    page: 'vat_calculator'
+  });
   var rate = parseFloat(document.getElementById('vatRate').value);
   var price = parseFloat(document.getElementById('price').value);
   var sel = document.getElementById('vat-country');
