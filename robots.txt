@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eutoolbox.com/sitemap.xml
