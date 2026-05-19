@@ -1266,6 +1266,12 @@ function vvDetect(val) {
 }
 
 function vvValidate() {
+  function calculate() {
+  // GA4 tracking
+  gtag('event', 'validate_vat_click', {
+    method: 'button',
+    page: 'vat_validator'
+  });
   var raw = document.getElementById("vv-input").value;
   var cleaned = vvCleanStr(raw);
   var res = document.getElementById("vv-result");
